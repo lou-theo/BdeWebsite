@@ -1,14 +1,19 @@
 .red{
     height: 250px;
-    background-color: red;
+    background-color: #c61324;
+}
+.redd{
+    height: 80px;
+    background-color: #c61324;
 }
 .conta{
     display: flex;
     justify-content: space-between;
 }
 .btn-danger{
-    background-color: red;
-    border-color: red;
+    background-color: #c61324;
+    border-color: #b21325;
+    border-width: 3px;
 }
 .conn{
     align-content: right;
@@ -20,4 +25,19 @@
 }
 .ima{
     margin-left: 14%;
+}
+.contain{
+    display: flex;
+    justify-content: space-around;
+}
+.copyright{
+    font-size: 10px;
+    text-align: center  ;
+    margin-top: 30px;
+}
+.logo{
+    margin-top: 15px;
+}
+.team{
+    margin-top: 25px;
 }
