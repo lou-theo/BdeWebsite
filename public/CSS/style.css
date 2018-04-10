@@ -1,0 +1,23 @@
+.red{
+    height: 250px;
+    background-color: red;
+}
+.conta{
+    display: flex;
+    justify-content: space-between;
+}
+.btn-danger{
+    background-color: red;
+    border-color: red;
+}
+.conn{
+    align-content: right;
+    margin-top: 10px;
+}
+.containeur{
+    display: flex;
+    justify-content: space-around;
+}
+.ima{
+    margin-left: 14%;
+}
