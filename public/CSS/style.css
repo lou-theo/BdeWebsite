@@ -11,28 +11,32 @@
     justify-content: space-between;
 }
 .btn-danger{
-    background-color: #c61324;
-    border-color: #b21325;
+    background-color: #b51324;
+    border-color: #9d1425;
     border-width: 3px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 .conn{
     align-content: right;
     margin-top: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 .containeur{
     display: flex;
     justify-content: space-around;
 }
 .ima{
-    margin-left: 14%;
+
 }
 .contain{
     display: flex;
     justify-content: space-around;
 }
 .copyright{
-    font-size: 10px;
-    text-align: center  ;
+    font-size: 15px;
+    text-align: center;
     margin-top: 30px;
 }
 .logo{
@@ -40,4 +44,23 @@
 }
 .team{
     margin-top: 25px;
+}
+.con{
+    height: 500px;
+    background-color: #bcb9bf;
+}
+.btn-primary{
+    float: right;
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin-top: 30px;
+}
+.fa-facebook-official , .fa-twitter{
+    margin-left: 20px;
+    transition:0.3s;
+}
+.fa-facebook-official:hover , .fa-twitter:hover{
+    opacity: 0.2;c;
+
 }
