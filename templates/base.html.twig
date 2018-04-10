@@ -4,36 +4,45 @@
         <meta charset="UTF-8">
         <title>{% block title %}BDE{% endblock %}</title>
         {% block stylesheets %}
+            <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
             <link rel="stylesheet" href="CSS/style.css">
         {% endblock %}
 
     </head>
     <body>
-        {% block body %}
-            <header>
-                <div class="container-fluid red">
-                    <div class="container conta">
-                        <div></div>
-                        <div class="ima">
-                            <img src="Image/Logo.png" class="image">
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-danger conn">Connexion/Inscription</button>
-                        </div>
+        <header>
+            <div class="container-fluid red">
+                <div class="container conta">
+                    <div></div>
+                    <div class="ima">
+                        <img src="Image/Logo.png" class="image">
                     </div>
-
-                    <div class="container containeur">
-                        <div> <button type="button" class="btn btn-danger ">Acceuil</button></div>
-                        <div><button type="button" class="btn btn-danger ">Boutique</button></div>
-                        <div><button type="button" class="btn btn-danger ">Evenement</button></div>
-                        <div><button type="button" class="btn btn-danger ">Inscrition</button></div>
-
+                    <div>
+                        <button type="button" class="btn btn-danger conn">Connexion/Inscription</button>
                     </div>
                 </div>
 
-            </header>
+                <div class="container containeur">
+                    <div> <button type="button" class="btn btn-danger ">Acceuil</button></div>
+                    <div><button type="button" class="btn btn-danger ">Boutique</button></div>
+                    <div><button type="button" class="btn btn-danger ">Evenement</button></div>
+                    <div><button type="button" class="btn btn-danger ">Inscrition</button></div>
+
+                </div>
+            </div>
+
+        </header>
+
+        {% block body %}
         {% endblock %}
+        <footer>
+            <div class="container-fluid redd contain">
+                <div class="team">Crée par la Team Gaming </div>
+                <div class="copyright">©Copyright Bde Incorporation</div>
+                <div class="logo"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i> <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i> <i class="fa fa-snapchat-square fa-3x" aria-hidden="true"> <i class="fa fa-instagram " aria-hidden="true"></i></i> </div>
+            </div>
+        </footer>
         {% block javascripts %}   {% endblock %}
 
     </body>
