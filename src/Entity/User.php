@@ -5,17 +5,18 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="user")
+ * @ORM\Table(name="app_user")
  * @UniqueEntity(
  *     fields={"email"},
  *     errorPath="email",
  *     message="Cette adresse e-mail est déjà utilisée."
  * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -55,11 +56,11 @@ class User
     private $mail;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="json_array")
      */
-    private $role;
+    private $roles;
 
     /**
      * @var Notification
@@ -71,6 +72,30 @@ class User
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+    }
+
+    /**
+     * @return null|string|void
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): ?string
+    {
+        return $this->getMail();
+    }
+
+    /**
+     * Efface les données sensibles (mdp en clair par ex)
+     */
+    public function eraseCredentials(): void
+    {
     }
 
     /**
@@ -146,21 +171,29 @@ class User
     }
 
     /**
-     * @return null|string
+     * @param string $role
      */
-    public function getRole(): ?string
+    public function addRole(string $role)
     {
-        return $this->role;
+        $this->roles[] = $role;
     }
 
     /**
      * @param string $role
      */
-    public function setRole(string $role)
+    public function deleteRole(string $role)
     {
-        $this->role = $role;
+        $this->roles->removeElement($role);
     }
 
+
+    /**
+     * @return null|array
+     */
+    public function getRoles(): ?ArrayCollection
+    {
+        return $this->roles;
+    }
     /**
      * @param Notification $notification
      */
