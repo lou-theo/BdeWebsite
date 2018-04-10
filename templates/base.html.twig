@@ -2,11 +2,39 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}BDE{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+            <link rel="stylesheet" href="CSS/style.css">
+        {% endblock %}
+
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+            <header>
+                <div class="container-fluid red">
+                    <div class="container conta">
+                        <div></div>
+                        <div class="ima">
+                            <img src="Image/Logo.png" class="image">
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-danger conn">Connexion/Inscription</button>
+                        </div>
+                    </div>
+
+                    <div class="container containeur">
+                        <div> <button type="button" class="btn btn-danger ">Acceuil</button></div>
+                        <div><button type="button" class="btn btn-danger ">Boutique</button></div>
+                        <div><button type="button" class="btn btn-danger ">Evenement</button></div>
+                        <div><button type="button" class="btn btn-danger ">Inscrition</button></div>
+
+                    </div>
+                </div>
+
+            </header>
+        {% endblock %}
+        {% block javascripts %}   {% endblock %}
+
     </body>
 </html>
