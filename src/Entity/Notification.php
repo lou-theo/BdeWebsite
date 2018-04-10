@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Notification
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -18,16 +20,22 @@ class Notification
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="text")
      */
     private $message;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=20)
      */
     private $type;
 
     /**
+     * @var boolean
+     *
      * @ORM\Column(type="boolean")
      */
     private $viewed;
