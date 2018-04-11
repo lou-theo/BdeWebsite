@@ -6,6 +6,7 @@ use App\Form\RegisterForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends Controller
@@ -15,7 +16,7 @@ class SecurityController extends Controller
      *
      * @Route("/login", name="login")
      */
-    public function login()
+    public function loginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -26,6 +27,14 @@ class SecurityController extends Controller
             'error'         => $error,
             'last_username' => $lastUsername
         ]);
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+        throw new \RuntimeException('Logout');
     }
 
     /**
@@ -50,7 +59,11 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('login');
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->container->get('security.token_storage')->setToken($token);
+            $this->container->get('session')->set('_security_main', serialize($token));
+
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render(
