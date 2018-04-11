@@ -26,16 +26,12 @@
 
                 <div class="container containeur">
                     <!-- Example single danger button -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Evenements
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Evenements à venir</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Boite à idée</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Evenements passé</a>
+                    <div class="dropdown">
+                        <button class="btn btn-danger">Evenement</button>
+                        <div class="dropdown-content">
+                            <a href="#">Evénements à venir</a>
+                            <a href="#">Boite a Idées</a>
+                            <a href="#">Evénements passés</a>
                         </div>
                     </div>
                     <div><button type="button" class="btn btn-danger ">Boutique</button></div>
@@ -53,7 +49,10 @@
             <div class="container-fluid redd contain">
                 <div class="team">Crée par la Team Gaming </div>
                 <div class="copyright"><a href="http://127.0.0.1:8000/cgu"> ©Copyright Bde Incorporation</a></div>
-                <div class="logo"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i> <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i> </i> </div>
+                <div class="logo">
+                    <a href="https://twitter.com/BDE_ExiaReims"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+                    <a href="https://www.facebook.com/BDExiaReims"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+                     </div>
             </div>
         </footer>
         {% block javascripts %}
