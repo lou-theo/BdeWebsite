@@ -26,6 +26,10 @@ security:
                 path:   /logout
                 target: /
 
+    role_hierarchy:
+        ROLE_CESI: ROLE_USER
+        ROLE_BDE: ROLE_USER
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
