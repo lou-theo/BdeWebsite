@@ -2,9 +2,16 @@
 
 namespace App\Controller;
 
+
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class WelcomeController extends Controller
 {
@@ -12,31 +19,48 @@ class WelcomeController extends Controller
      * @Route("/", name="welcome")
      */
 
-    public function indexAction()
+    public function addAction(Request $request, \Swift_Mailer $mailer)
     {
-        return $this->render('welcome/index.html.twig', [
-            'controller_name' => 'WelcomeController',
-        ]);
+        /*
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
+
+        $formBuilder
+            ->add('mail',      EmailType::class)
+            ->add('title',     TextType::class)
+            ->add('message',   TextareaType::class)
+            ->add('save',      SubmitType::class)
+        ;
+
+        $form = $formBuilder->getForm();
+
+
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+            }
+        }
+         */
 
 
 
 
-        /*public function contact(Request $request)
-    {
-    $defaultData = array('message' => 'Type your message here');
-    $form = $this->createFormBuilder($defaultData)
-    ->add('name', TextType::class)
-    ->add('email', EmailType::class)
-    ->add('message', TextareaType::class)
-    ->add('send', SubmitType::class)
-    ->getForm();
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('bdeexiacesireims@gmail.com')
+            ->setTo('bdeexiacesireims@gmail.com')
+            ->setBody('Ceci est un test')
+        ;
 
-    $form->handleRequest($request);
+        $mailer->send($message);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-    // data is an array with "name", "email", and "message" keys
-    $data = $form->getData();
-    }*/
+
+
+
+        return $this->render('Welcome/index.html.twig'/*, array(
+            'form' => $form->createView(),
+        )*/);
     }
 }
 
