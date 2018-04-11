@@ -50,13 +50,18 @@ class User implements UserInterface
 
     /**
      * @var string
+     */
+    private $plainPassword;
+
+    /**
+     * @var string
      *
      * @ORM\Column(type="string", length=150)
      */
     private $mail;
 
     /**
-     * @var ArrayCollection
+     * @var array
      *
      * @ORM\Column(type="json_array")
      */
@@ -72,7 +77,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
-        $this->roles = new ArrayCollection();
+        $this->roles = [];
     }
 
     /**
@@ -157,6 +162,22 @@ class User implements UserInterface
     /**
      * @return null|string
      */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return null|string
+     */
     public function getMail(): ?string
     {
         return $this->mail;
@@ -180,17 +201,26 @@ class User implements UserInterface
 
     /**
      * @param string $role
+     * @return bool
      */
     public function deleteRole(string $role)
     {
-        $this->roles->removeElement($role);
+        $key = array_search($role, $this->roles, true);
+
+        if ($key === false) {
+            return false;
+        }
+
+        unset($this->roles[$key]);
+
+        return true;
     }
 
 
     /**
      * @return null|array
      */
-    public function getRoles(): ?ArrayCollection
+    public function getRoles(): ?array
     {
         return $this->roles;
     }
