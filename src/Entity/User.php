@@ -4,18 +4,20 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="user")
+ * @ORM\Table(name="app_user")
  * @UniqueEntity(
- *     fields={"email"},
- *     errorPath="email",
+ *     fields={"mail"},
+ *     errorPath="mail",
  *     message="Cette adresse e-mail est déjà utilisée."
  * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -50,16 +52,29 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=150)
+     * @Assert\Regex(
+     *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,60}$/",
+     *     match=true,
+     *     message="Le mot de passe doit comporter au moins 1 lettre minuscule, 1 lettre majuscule et 1 chiffre."
+     * )
      */
-    private $mail;
+    private $plainPassword;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
-    private $role;
+    private $mail;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    private $roles;
 
     /**
      * @var Notification
@@ -71,6 +86,30 @@ class User
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
+        $this->roles = [];
+    }
+
+    /**
+     * @return null|string|void
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): ?string
+    {
+        return $this->getMail();
+    }
+
+    /**
+     * Efface les données sensibles (mdp en clair par ex)
+     */
+    public function eraseCredentials(): void
+    {
     }
 
     /**
@@ -132,6 +171,22 @@ class User
     /**
      * @return null|string
      */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return null|string
+     */
     public function getMail(): ?string
     {
         return $this->mail;
@@ -146,21 +201,38 @@ class User
     }
 
     /**
-     * @return null|string
+     * @param string $role
      */
-    public function getRole(): ?string
+    public function addRole(string $role)
     {
-        return $this->role;
+        $this->roles[] = $role;
     }
 
     /**
      * @param string $role
+     * @return bool
      */
-    public function setRole(string $role)
+    public function deleteRole(string $role)
     {
-        $this->role = $role;
+        $key = array_search($role, $this->roles, true);
+
+        if ($key === false) {
+            return false;
+        }
+
+        unset($this->roles[$key]);
+
+        return true;
     }
 
+
+    /**
+     * @return null|array
+     */
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
     /**
      * @param Notification $notification
      */
