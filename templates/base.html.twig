@@ -6,6 +6,7 @@
         {% block stylesheets %}
             <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
             <link rel="stylesheet" href="CSS/style.css">
         {% endblock %}
 
@@ -14,9 +15,9 @@
         <header>
             <div class="container-fluid red">
                 <div class="container conta">
-                    <div></div>
+                    <div style="width: 210px"></div>
                     <div class="ima">
-                        <img src="Image/Logo.png" class="image">
+                        <a href="http://127.0.0.1:8000"> <img src="Image/Logo.png" lass="image" ></a>
                     </div>
                     <div>
                         <button type="button" class="btn btn-danger conn">Connexion/Inscription</button>
@@ -24,10 +25,17 @@
                 </div>
 
                 <div class="container containeur">
-                    <div> <button type="button" class="btn btn-danger ">Acceuil</button></div>
+                    <!-- Example single danger button -->
+                    <div class="dropdown">
+                        <button class="btn btn-danger">Evenement</button>
+                        <div class="dropdown-content">
+                            <a href="#">Evénements à venir</a>
+                            <a href="#">Boite a Idées</a>
+                            <a href="#">Evénements passés</a>
+                        </div>
+                    </div>
                     <div><button type="button" class="btn btn-danger ">Boutique</button></div>
-                    <div><button type="button" class="btn btn-danger ">Evenement</button></div>
-                    <div><button type="button" class="btn btn-danger ">Inscrition</button></div>
+                    <div><button type="button" class="btn btn-danger ">Contact</button></div>
 
                 </div>
             </div>
@@ -35,15 +43,23 @@
         </header>
 
         {% block body %}
+
         {% endblock %}
         <footer>
             <div class="container-fluid redd contain">
                 <div class="team">Crée par la Team Gaming </div>
-                <div class="copyright">©Copyright Bde Incorporation</div>
-                <div class="logo"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i> <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i> <i class="fa fa-snapchat-square fa-3x" aria-hidden="true"> <i class="fa fa-instagram " aria-hidden="true"></i></i> </div>
+                <div class="copyright"><a href="http://127.0.0.1:8000/cgu"> ©Copyright Bde Incorporation</a></div>
+                <div class="logo">
+                    <a href="https://twitter.com/BDE_ExiaReims"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+                    <a href="https://www.facebook.com/BDExiaReims"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+                     </div>
             </div>
         </footer>
-        {% block javascripts %}   {% endblock %}
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        {% endblock %}
 
     </body>
 </html>
