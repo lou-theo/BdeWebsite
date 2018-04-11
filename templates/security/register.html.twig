@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.mail) }}
+    {{ form_row(form.plainPassword.first) }}
+    {{ form_row(form.plainPassword.second) }}
+    {{ form_row(form.termsAccepted) }}
+
+    <button type="submit">S'inscrire</button>
+    {{ form_end(form) }}
+{% endblock %}

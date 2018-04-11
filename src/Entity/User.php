@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,8 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="app_user")
  * @UniqueEntity(
- *     fields={"email"},
- *     errorPath="email",
+ *     fields={"mail"},
+ *     errorPath="mail",
  *     message="Cette adresse e-mail est déjà utilisée."
  * )
  */
@@ -50,13 +51,21 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
+     * @Assert\Regex(
+     *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,60}$/",
+     *     match=true,
+     *     message="Le mot de passe doit comporter au moins 1 lettre minuscule, 1 lettre majuscule et 1 chiffre."
+     * )
      */
     private $plainPassword;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $mail;
 
