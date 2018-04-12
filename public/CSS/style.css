@@ -10,12 +10,6 @@
     display: flex;
     justify-content: space-between;
 }
-.container_login{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
 .btn-danger{
     background-color: #b51324;
     border-color: #9d1425;
@@ -116,15 +110,6 @@ a:hover{
 a{
     color: #70141d;
 }
-p{
-    margin-bottom: 3px;
-    padding-bottom: 3px;
-    margin-top: 10px;
-    padding-top: 10px;
-}
-
-
-
 
 @media all and (max-width: 1024px){
     .fa-facebook-official , .fa-twitter{

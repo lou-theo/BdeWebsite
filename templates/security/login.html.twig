@@ -7,34 +7,15 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    {# <form action="{{ path('login') }}" method="post">
-         <label for="username">Adresse Mail :</label>
-         <input type="text" id="username" name="_username" value="{{ last_username }}" />
+    <form action="{{ path('login') }}" method="post">
+        <label for="username">Adresse Mail :</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-         <label for="password">Mot de passe :</label>
-         <input type="password" id="password" name="_password" />
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="_password" />
 
-         <input type="hidden" name="_target_path" value="/" />
+        <input type="hidden" name="_target_path" value="/" />
 
-         <button type="submit">Connexion</button>
-     </form>#}
-
-    <div class="container_login">
-        <div ></div>
-    <form>
-        <div class="form-group">
-            <label for="username">Adresse Mail :</label>
-            <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="_password" class="form-control" placeholder="Password">
-            <input type="hidden" name="_target_path" value="/" />
-        </div>
-        <button type="submit" class="btn btn-danger logi">Connexion</button>
-
-        <p>Pas encore de compte, inscrivez vous ici !</p><a href="http://127.0.0.1:8000/register"> <button type="button" class="btn btn-danger logi">Inscription</button></a>
+        <button type="submit">Connexion</button>
     </form>
-        <div ></div>
-    </div>
 {% endblock %}
