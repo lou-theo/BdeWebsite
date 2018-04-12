@@ -26,6 +26,10 @@ security:
                 path:   /logout
                 target: /
 
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 31536000   # 1 ans
+
     role_hierarchy:
         ROLE_CESI: ROLE_USER
         ROLE_BDE: ROLE_USER

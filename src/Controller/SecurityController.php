@@ -7,17 +7,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends Controller
 {
     /**
+     * @param AuthorizationCheckerInterface $authChecker
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/login", name="login")
      */
-    public function loginAction()
+    public function loginAction(AuthorizationCheckerInterface $authChecker)
     {
+        if (true === $authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('welcome');
+        }
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -40,12 +46,17 @@ class SecurityController extends Controller
     /**
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param AuthorizationCheckerInterface $authChecker
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/register", name="registration")
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, AuthorizationCheckerInterface $authChecker)
     {
+        if (true === $authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('welcome');
+        }
+
         $user = new User();
         $form = $this->createForm(RegisterForm::class, $user);
 
