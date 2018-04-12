@@ -20,7 +20,23 @@
                         <a href="http://127.0.0.1:8000"> <img src="Image/Logo.png" lass="image" ></a>
                     </div>
                     <div>
-                       <a href="http://127.0.0.1:8000/login" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <div class="dropdown">
+                                <button class="btn btn-danger btn-compte">Mon compte</button>
+                                <div class="dropdown-content">
+                                    <a href="#">Pannier</a>
+                                    <a href="{{ url('logout') }}">Déconnexion</a>
+                                    <a href="#">Mes infos</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="http://127.0.0.1:8000/login" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
+                        {% endif %}
+
+
+
+
+
                     </div>
                 </div>
 

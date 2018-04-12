@@ -124,7 +124,11 @@ p{
 }
 
 
-
+.btn-compte{
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
 
 @media all and (max-width: 1024px){
     .fa-facebook-official , .fa-twitter{
