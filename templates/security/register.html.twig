@@ -3,14 +3,67 @@
 {% block title %}Inscription - {{ parent() }}{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.firstName) }}
-    {{ form_row(form.lastName) }}
-    {{ form_row(form.mail) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
-    {{ form_row(form.termsAccepted) }}
+    {#<form name="register_form" method="post">
+        <div>
+            <label for="register_form_firstName" class="required">Prénom</label>
+            <input type="text" id="register_form_firstName" name="register_form[firstName]" required="required">
+        </div>
+        <div>
+            <label for="register_form_lastName" class="required">Nom</label>
+            <input type="text" id="register_form_lastName" name="register_form[lastName]" required="required">
+        </div>
+        <div>
+            <label for="register_form_mail" class="required">Adresse mail</label>
+            <input type="email" id="register_form_mail" name="register_form[mail]" required="required">
+        </div>
+        <div>
+            <label for="register_form_plainPassword_first" class="required">Mot de Passe</label>
+            <input type="password" id="register_form_plainPassword_first" name="register_form[plainPassword][first]" required="required">
+        </div>
+        <div>
+            <label for="register_form_plainPassword_second" class="required">Répéter le mot de passe</label>
+            <input type="password" id="register_form_plainPassword_second" name="register_form[plainPassword][second]" required="required">
+        </div>
+        <div>
+            <label for="register_form_termsAccepted" class="required">"Je reconnais avoir lu et accepté les CGU du site"</label>
+            <input type="checkbox" id="register_form_termsAccepted" name="register_form[termsAccepted]" required="required" value="1">
+        </div>
 
-    <button type="submit">S'inscrire</button>
-    {{ form_end(form) }}
+        <button type="submit">S'inscrire</button>
+        <input type="hidden" id="register_form__token" name="register_form[_token]" value="R1zkbjRmsxYhFmju22PaImG0VWfbJk518X_1-O46ulQ"></form>#}
+
+    <div class="container_login">
+        <div ></div>
+
+    <form name="register_form" method="post">
+        <div class="form-group">
+            <label for="register_form_firstName" class="required">Prénom</label>
+            <input type="text" id="register_form_firstName" name="register_form[firstName]" required="required" class="form-control" aria-describedby="emailHelp" placeholder="Prénom">
+        </div>
+        <div class="form-group">
+            <label for="register_form_lastName" class="required">Nom</label>
+            <input type="text" id="register_form_lastName" name="register_form[lastName]" required="required" class="form-control" aria-describedby="emailHelp" placeholder="Nom">
+        </div>
+        <div class="form-group">
+            <label for="register_form_mail" class="required">Adresse mail</label>
+            <input  type="email" id="register_form_mail" name="register_form[mail]" required="required" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="register_form_plainPassword_first" class="required">Mot de Passe</label>
+            <input type="password" id="register_form_plainPassword_first" name="register_form[plainPassword][first]" required="required" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe">
+        </div>
+        <div class="form-group">
+            <label for="register_form_plainPassword_second" class="required">Répéter le mot de passe</label>
+            <input type="password" id="register_form_plainPassword_second" name="register_form[plainPassword][second]" required="required" class="form-control" aria-describedby="emailHelp" placeholder="Mot de passe">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="register_form_termsAccepted" name="register_form[termsAccepted]" required="required" value="1">
+            <label for="register_form_termsAccepted" class="form-check-label required" >Je reconnais avoir lu et accepté les <a style="color: #0000F0   " href="{{ url('cgu-mention') }}">CGU du site</a></label>
+        </div>
+        <button type="submit" class="btn btn-danger">S'inscrire</button>
+        <input type="hidden" id="register_form__token" name="register_form[_token]" value="R1zkbjRmsxYhFmju22PaImG0VWfbJk518X_1-O46ulQ">
+    </form>
+        <div ></div>
+
+    </div>
 {% endblock %}
