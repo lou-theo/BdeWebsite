@@ -2,6 +2,13 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    mailer_transport: smtp
+    mailer_host: 192.168.1.247
+    mailer_user: bdeexiacesireims@gmail.com
+    mailer_password: exiacesireims
+    mailer_auth_mode: login
+    mailer_port: 25
+    mailer_encryption: null
 
 services:
     # default configuration for services in *this* file
