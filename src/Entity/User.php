@@ -87,6 +87,7 @@ class User implements UserInterface
     {
         $this->notifications = new ArrayCollection();
         $this->roles = [];
+        $this->roles[] = 'ROLE_USER';
     }
 
     /**
