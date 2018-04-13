@@ -3,5 +3,51 @@
 {% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
-{{ goodiesList[0].name }}
+
+    <input id="search" type="search" placeholder="Entrez un mot-clef" name="the_search">
+
+    <div id="ListeGoodies">
+        {#Produit : Casquette#}
+        <div class="element">
+            <img class="goodies" src="{{ asset('Image/Goodies/casquette.jpg') }}" id="casquette" alt="casquette" />
+                <span id="txt">
+                    Casquette Exia : (15€)
+                    L'été arrive !
+                </span>
+        </div>
+
+        {#Produit : Mug#}
+        <div class="element">
+            <img class="goodies" src="{{ asset('Image/Goodies/mug.jpg') }}" id="mug" alt="mug" />
+                <span id="txt">
+                    Mug Exia : (10€)
+                    Pas meilleur mug pour déguster son petit déjeuner !
+                </span>
+        </div>
+
+        {#Produit : Ballon#}
+        <div class="element">
+            <img class="goodies"  src="{{ asset('Image/Goodies/ballon.jpg') }}" id="ballon" alt="ballon" />
+                <span id="txt">
+                    Ballon Exia : (15€)
+                    Description : afin de passer de bons moments entre amis
+                </span>
+        </div>
+
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+
+    </div>
+
+    <div id="PopularGoodies">
+
+    </div>
+
 {% endblock %}
