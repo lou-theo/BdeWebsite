@@ -9,9 +9,10 @@
 
     <form name="register_form" method="post">
         {% if not form.vars.valid %}
-            <div class="message-error">{{ form_errors(form) }}</div>
+            <div class="message-error eror">{{ form_errors(form) }}</div>
         {% endif %}
         <div class="form-group">
+
             <label for="register_form_firstName" class="required">Prénom</label>
             <input type="text" id="register_form_firstName" name="register_form[firstName]" required="required" class="form-control" aria-describedby="emailHelp" placeholder="Prénom">
         </div>
@@ -35,8 +36,11 @@
             <input type="checkbox" class="form-check-input" id="register_form_termsAccepted" name="register_form[termsAccepted]" required="required" value="1">
             <label for="register_form_termsAccepted" class="form-check-label required" >Je reconnais avoir lu et accepté les <a style="color: #0000F0   " href="{{ url('cgu-mention') }}">CGU du site</a></label>
         </div>
-        <button type="submit" class="btn btn-danger">S'inscrire</button>
+        <div class="conins">
+        <button type="submit" class="btn btn-danger ">Inscription</button>
         <input type="hidden" id="register_form__token" name="register_form[_token]" value="{{ csrf_token('register_form') }}">
+        <p style="text-align:left;color: #b51324;text-decoration: underline;text-underline: #70141d">Déja un compte, connectez-vous ici :</p><a href="{{ path('login') }}"> <button type="button" class="btn btn-danger logi conins">Connexion</button></a>
+        </div>
     </form>
         <div ></div>
 

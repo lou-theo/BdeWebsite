@@ -129,6 +129,13 @@ p{
     padding-left: 10px;
     margin-top: 10px;
 }
+.conins{text-align: center;
+}
+.eror{
+
+box-shadow: #70141d;
+}
+
 
 @media all and (max-width: 1024px){
     .fa-facebook-official , .fa-twitter{
