@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\IdeaEventRepository")
  * @ORM\Table(name="idea_event")
+ * @Vich\Uploadable
  */
 class IdeaEvent
 {
@@ -37,9 +40,16 @@ class IdeaEvent
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=255)
      */
     private $picture;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="event", fileNameProperty="picture")
+     */
+    private $pictureFile;
 
     /**
      * @var User
@@ -72,7 +82,7 @@ class IdeaEvent
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -88,7 +98,7 @@ class IdeaEvent
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -104,7 +114,7 @@ class IdeaEvent
     /**
      * @return string
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
@@ -118,9 +128,25 @@ class IdeaEvent
     }
 
     /**
+     * @return File
+     */
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param File $pictureFile
+     */
+    public function setPictureFile(File $pictureFile): void
+    {
+        $this->pictureFile = $pictureFile;
+    }
+
+    /**
      * @return User
      */
-    public function getUserOwner(): User
+    public function getUserOwner(): ?User
     {
         return $this->userOwner;
     }
@@ -136,7 +162,7 @@ class IdeaEvent
     /**
      * @param User $user
      */
-    public function addUserVote(User $user)
+    public function addUserVote(User $user): void
     {
         $this->usersVote[] = $user;
     }
@@ -144,7 +170,7 @@ class IdeaEvent
     /**
      * @param User $user
      */
-    public function removeUserVote(User $user)
+    public function removeUserVote(User $user): void
     {
         $this->usersVote->removeElement($user);
     }

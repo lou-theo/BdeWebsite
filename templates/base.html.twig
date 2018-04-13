@@ -7,7 +7,7 @@
             <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-            <link rel="stylesheet" href="CSS/style.css">
+            <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
         {% endblock %}
 
     </head>
@@ -17,9 +17,10 @@
                 <div class="container conta">
                     <div style="width: 210px"></div>
                     <div class="ima">
-                        <a href="http://127.0.0.1:8000"> <img src="Image/Logo.png" lass="image" ></a>
+                        <a href="{{ path('welcome') }}"> <img src="{{ asset('Image/Logo.png') }}" class="image" ></a>
                     </div>
                     <div>
+
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="dropdown">
                                 <button class="btn btn-danger btn-compte">Mon compte</button>
@@ -30,18 +31,13 @@
                                 </div>
                             </div>
                         {% else %}
-                            <a href="http://127.0.0.1:8000/login" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
+                            <a href="{{ url('login') }}" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
                         {% endif %}
-
-
-
-
 
                     </div>
                 </div>
 
                 <div class="container containeur">
-                    <!-- Example single danger button -->
                     <div class="dropdown">
                         <button class="btn btn-danger">Evenement</button>
                         <div class="dropdown-content">
@@ -64,7 +60,7 @@
         <footer>
             <div class="container-fluid redd contain">
                 <div class="team">Crée par la Team Gaming </div>
-                <div class="copyright"><a href="http://127.0.0.1:8000/cgu"> ©Copyright Bde Incorporation</a></div>
+                <div class="copyright"><a href="{{ path('cgu-mention') }}"> ©Copyright Bde Incorporation</a></div>
                 <div class="logo">
                     <a href="https://twitter.com/BDE_ExiaReims"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
                     <a href="https://www.facebook.com/BDExiaReims"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boite à Idée - {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% if ideaEventList is empty %}
+        <p>
+            Il n'y a actuellement aucun évènement dans la boite à idée
+        </p>
+    {% else %}
+        {% for ideaEvent in ideaEventList %}
+            {{ ideaEvent.title }}
+            {{ ideaEvent.description }}
+            {{ ideaEvent.picture }}
+            {{ ideaEvent.userOwner.firstName }}
+            {{ ideaEvent.userOwner.lastName }}
+        {% endfor %}
+    {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.pictureFile) }}
+        <button type="submit" >Enregistrer</button>
+    {{ form_end(form) }}
+
+{% endblock %}
