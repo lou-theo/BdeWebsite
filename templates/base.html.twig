@@ -20,7 +20,20 @@
                         <a href="{{ path('welcome') }}"> <img src="{{ asset('Image/Logo.png') }}" class="image" ></a>
                     </div>
                     <div>
-                       <a href="{{ url('login') }}" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
+
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <div class="dropdown">
+                                <button class="btn btn-danger btn-compte">Mon compte</button>
+                                <div class="dropdown-content">
+                                    <a href="#">Pannier</a>
+                                    <a href="{{ url('logout') }}">Déconnexion</a>
+                                    <a href="#">Mes infos</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{{ url('login') }}" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
+                        {% endif %}
+
                     </div>
                 </div>
 
