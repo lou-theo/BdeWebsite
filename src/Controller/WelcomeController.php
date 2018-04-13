@@ -15,7 +15,7 @@ class WelcomeController extends Controller
      */
     public function indexAction()
     {
-
+        return $this->render('Welcome/index.html.twig');
     }
 
 
@@ -42,7 +42,8 @@ class WelcomeController extends Controller
             ;
 
             $mailer->send($message);
-            
+
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('Welcome/contactForm.html.twig', array(
