@@ -2,67 +2,56 @@
 
 namespace App\Controller;
 
-
+use App\Form\ContactForm;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response; 
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 
 class WelcomeController extends Controller
 {
     /**
      * @Route("/", name="welcome")
      */
-
-    public function addAction(Request $request, \Swift_Mailer $mailer)
+    public function indexAction()
     {
-        /*
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
 
-        $formBuilder
-            ->add('mail',      EmailType::class)
-            ->add('title',     TextType::class)
-            ->add('message',   TextareaType::class)
-            ->add('save',      SubmitType::class)
-        ;
-
-        $form = $formBuilder->getForm();
-
-
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-
-            if ($form->isValid()) {
-
-            }
-        }
-         */
-
-
-
-
-        $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('bdeexiacesireims@gmail.com')
-            ->setTo('bdeexiacesireims@gmail.com')
-            ->setBody('Ceci est un test')
-        ;
-
-        $mailer->send($message);
-
-
-
-
-        return $this->render('Welcome/index.html.twig'/*, array(
-            'form' => $form->createView(),
-        )*/);
     }
+
+
+    /**
+     * @Route("/contact", name="contact")
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function contactAction(Request $request, \Swift_Mailer $mailer)
+    {
+
+        $formContact = $this->createForm(ContactForm::class);
+
+        $formContact->handleRequest($request);
+        if($formContact->isSubmitted() && $formContact->isValid())
+        {
+            $contact = $formContact->getData();
+
+            $message = (new \Swift_Message($contact['title']))
+                ->setFrom($contact['mail'])
+                ->setTo('bdeexiacesireims@gmail.com')
+                ->setBody($contact['message'])
+            ;
+
+            $mailer->send($message);
+            
+        }
+
+        return $this->render('Welcome/contactForm.html.twig', array(
+            'form' => $formContact->createView(),
+        ));
+
+    }
+
+
 }
 
 
