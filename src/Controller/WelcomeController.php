@@ -51,8 +51,16 @@ class WelcomeController extends Controller
         ));
 
     }
-
-
+  
+    /**
+     * @Route("/cgu", name="cgu-mention")
+     */
+    public function cguAction()
+    {
+        return $this->render('welcome/cgu.html.twig', [
+            'controller_name' => 'WelcomeController',
+        ]);
+    }
 }
 
 

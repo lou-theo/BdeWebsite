@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+
+   <div class="container_login">
+       <div ></div>
+   <form action="{{ path('login') }}" method="post">
+       {% if error %}
+           <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+       {% endif %}
+       <div class="form-group">
+           <label for="username">Adresse Mail :</label>
+           <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" aria-describedby="emailHelp" placeholder="Enter email">
+       </div>
+       <div class="form-group">
+           <label for="password">Mot de passe :</label>
+           <input type="password" id="password" name="_password" class="form-control" placeholder="Password">
+           <input type="hidden" name="_target_path" value="/" />
+
+           <input type="checkbox" id="remember_me" name="_remember_me" />
+           <label for="remember_me">Rester connecté</label>
+       </div>
+       <div class="conins">
+       <button type="submit" class="btn btn-danger logi conins">Connexion</button>
+
+       <p>Pas encore de compte, inscrivez vous ici :</p><a href="{{ path('registration') }}"> <button type="button" class="btn btn-danger logi conins">Inscription</button></a>
+       </div>
+   </form>
+        <div ></div>
+    </div>
+{% endblock %}
