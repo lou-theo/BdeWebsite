@@ -18,31 +18,44 @@ class RegisterForm extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Prénom'],
+
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Nom'],
             ])
             ->add('mail', EmailType::class, [
-                'label' => 'Adresse mail'
+                'label' => 'Adresse mail',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Email'],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Mot de Passe'),
-                'second_options' => array('label' => 'Répéter le mot de passe'),
+                'first_options'  => [
+                    'label' => 'Mot de Passe',
+                    'attr' => ['class' => 'form-control', 'placeholder' => 'Mot de Passe'],
+                ],
+                'second_options' => [
+                    'label' => 'Répéter le Mot de Passe',
+                    'attr' => ['class' => 'form-control', 'placeholder' => 'Mot de Passe'],
+                ],
+                'invalid_message' => 'Les mots de passe ne correspondent pas.',
             ])
             ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
-                'label' => '"Je reconnais avoir lu et accepté les CGU du site"',
+                'label' => 'Je reconnais avoir lu et accepté les CGU du site',
+                'label_attr' => ['class' => 'form-check-label required'],
+                'attr' => ['class' => 'form-check-input'],
             ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => User::class,
-        ));
+        ]);
     }
 }
