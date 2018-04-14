@@ -4,24 +4,71 @@
 
 {% block body %}
     {% if ideaEventList is empty %}
-        <p>
+<div class="container_login">
+    <div ></div>
+        <p style="text-align: center" class="alert alert-warning">
             Il n'y a actuellement aucun évènement dans la boite à idée
         </p>
+    <div></div>
+</div>
     {% else %}
+        <h2 style="color: #70141d;text-decoration: underline;text-underline: #b51324;text-align: center">Les idées d'évenements pour le BDE :</h2>
+        <div style="height: 20px"></div>
+        <div class="contener_objet" >
         {% for ideaEvent in ideaEventList %}
-            {{ ideaEvent.title }}
-            {{ ideaEvent.description }}
-            {{ ideaEvent.picture }}
-            {{ ideaEvent.userOwner.firstName }}
-            {{ ideaEvent.userOwner.lastName }}
+            <div class="objet ">
+                <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~ideaEvent.picture)}}"></a>
+                <p style="font-size: 25px" class="titre alert alert-primary">{{ ideaEvent.title }}</p>
+                <p class="description ">{{ ideaEvent.description }}</p>
+                <p class="nom"> Proposé par :{{ ideaEvent.userOwner.firstName }}
+                 {{ ideaEvent.userOwner.lastName }}</p>
+
+            </div>
         {% endfor %}
+       </div>
     {% endif %}
 
-    {{ form_start(form) }}
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.pictureFile) }}
-        <button type="submit" >Enregistrer</button>
-    {{ form_end(form) }}
+    {#<form name="idea_event_form" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="idea_event_form_title" class="required">Nom de l'évènement</label>
+            <input type="text" id="idea_event_form_title" name="idea_event_form[title]" required="required">
+        </div>
+        <div>
+            <label for="idea_event_form_description" class="required">Description</label>
+            <textarea id="idea_event_form_description" name="idea_event_form[description]" required="required">
+            </textarea>
+        </div>
+        <div>
+            <label for="idea_event_form_pictureFile" class="required">
+                Image de présentation
+            </label>
+            <input type="file" id="idea_event_form_pictureFile" name="idea_event_form[pictureFile]" required="required">
+        </div>
+        <button type="submit">
+            Enregistrer
+        </button>
+        <input type="hidden" id="idea_event_form__token" name="idea_event_form[_token]" value="{{ csrf_token('idea_event_form') }}">
+    </form>#}
 
+<div class="container_login">
+    <div ></div>
+    <form name="idea_event_form" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="idea_event_form_title" class="required">Nom de l'évènement:</label>
+            <input type="text" id="idea_event_form_title" name="idea_event_form[title]" required="required" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="idea_event_form_description" class="required">Description:</label><br/>
+            <textarea class="form-control" id="idea_event_form_description" name="idea_event_form[description]" required="required"></textarea>
+        </div>
+        <div class="conins">
+
+                    <input type="file" class="form-control-file" id="idea_event_form_pictureFile" name="idea_event_form[pictureFile]" required="required">  <br/>
+
+            <button type="submit" class="btn btn-danger logi conins">Enregistrer</button>
+        </div>
+        <input type="hidden" id="idea_event_form__token" name="idea_event_form[_token]" value="{{ csrf_token('idea_event_form') }}">
+    </form>
+    <div ></div>
+</div>
 {% endblock %}
