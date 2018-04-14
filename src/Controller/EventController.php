@@ -44,7 +44,7 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($ideaEvent);
             $em->flush();
-
+            return $this->redirectToRoute('event_idea');
         }
 
         return $this->render('event/idea_event.html.twig', [

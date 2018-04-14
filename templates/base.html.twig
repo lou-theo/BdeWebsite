@@ -24,7 +24,7 @@
                             <div class="dropdown">
                                 <button class="btn btn-danger btn-compte">Mon compte</button>
                                 <div class="dropdown-content">
-                                    <a href="#">Pannier</a>
+                                    <a href="#">Panier</a>
                                     <a href="{{ url('logout') }}">Déconnexion</a>
                                     <a href="#">Mes infos</a>
                                 </div>
@@ -38,10 +38,10 @@
 
                 <div class="container containeur">
                     <div class="dropdown">
-                        <button class="btn btn-danger">Evenement</button>
+                        <a href="{{ path('future_event') }}"> <button class="btn btn-danger">Evenement</button></a>
                         <div class="dropdown-content">
-                            <a href="#">Evénements à venir</a>
-                            <a href="#">Boite a Idées</a>
+                            <a href="{{ path('future_event') }}">Evénements à venir</a>
+                            <a href="{{ path('event_idea') }}">Boite a Idées</a>
                             <a href="#">Evénements passés</a>
                         </div>
                     </div>

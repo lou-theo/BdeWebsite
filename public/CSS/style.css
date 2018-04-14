@@ -122,7 +122,13 @@ p{
     margin-top: 10px;
     padding-top: 10px;
 }
-
+.alert-primary{
+    padding-top: 5px;
+    padding-bottom:5px;
+    background: rgba(255, 0, 4, 0.26);
+    border-color: rgba(255, 0, 4, 0.44);
+    color: #a82228;
+}
 
 .btn-compte{
     padding-right: 10px;
@@ -135,8 +141,51 @@ p{
 
 box-shadow: #70141d;
 }
-
-
+.contener_objet{
+    display: flex;
+    flex-wrap: wrap;
+}
+.objet{
+    width: 98%;
+    height: 100%;
+margin-left: 1%;
+    margin-right: 1%;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom:  6px solid #9e0000;
+}
+.imagee{
+    float: left;
+    width: 25%;
+    height: 40%;
+}
+.nom,.titre,.description{
+    margin-left: 26%;
+}
+.nom{
+    color: #9d1425;
+    text-decoration: underline;
+    text-underline: #70141d;
+}
+.description{
+    overflow: hidden;
+    min-height: 150px;
+    max-height: 360px;
+    height: auto;
+}
+.description{
+}
+.accueil{
+    background: url("http://cite-saint-francois.fr/wp-content/uploads/2015/01/residence-etudiante-etudiants1.jpg") no-repeat ;
+    background-size: 100%;
+}
+.iframe {
+    margin-top: 90px;
+justify-content: left;
+    text-align: left;
+    margin-left: 0%;
+}
 @media all and (max-width: 1024px){
     .fa-facebook-official , .fa-twitter{
         margin-left: 0px;
