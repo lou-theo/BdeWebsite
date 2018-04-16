@@ -5,6 +5,8 @@ namespace App\Controller\Events;
 use App\Entity\Event;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class FutureEventController extends Controller
 {
@@ -41,5 +43,37 @@ class FutureEventController extends Controller
         return $this->render('event/future_event_details.html.twig', [
             'futureEvent' => $futureEvent,
         ]);
+    }
+
+    /**
+     * @Route("/evenements/{eventnum}/csv", name="download_csv")
+     **/
+    public function downloadFileAction(int $eventnum)
+    {
+        $list = array(array('aaa', 'bbb', 'ccc', 'dddd'),
+            array(155, 515, 516, 546));
+
+        $filename = 'liste_participants.csv';
+
+        $fileContent="";
+        $unite="";
+        foreach($list as $line)
+        {
+            foreach($line as $unite)
+            {
+                $fileContent.= $unite . ",";
+            }
+            $fileContent.= "<br>";
+        }
+
+
+        $response = new Response($fileContent);
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
     }
 }
