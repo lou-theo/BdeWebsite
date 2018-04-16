@@ -40,7 +40,7 @@ class EventController extends Controller
         {
             foreach($line as $unite)
             {
-                $fileContent.= $unite . ", ";
+                $fileContent.= $unite . ",";
             }
             $fileContent.= "<br>";
         }
@@ -48,7 +48,7 @@ class EventController extends Controller
 
         $response = new Response($fileContent);
         $disposition = $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_INLINE,
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $filename
         );
 
