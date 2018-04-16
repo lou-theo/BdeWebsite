@@ -25,13 +25,27 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/evenements/csv", name="download_csv")
+     * @Route("/evenements/{eventnum}/csv", name="download_csv")
      **/
-    public function downloadFileAction()
+    public function downloadFileAction(int $eventnum)
     {
-        $filename = 'Liste_participants.pdf';
+        $list = array(array('aaa', 'bbb', 'ccc', 'dddd'),
+                array(155, 515, 516, 546));
 
-        $fileContent = "Test";
+        $filename = 'liste_participants.csv';
+
+        $fileContent="";
+        $unite="";
+        foreach($list as $line)
+        {
+            foreach($line as $unite)
+            {
+                $fileContent.= $unite . ", ";
+            }
+            $fileContent.= "<br>";
+        }
+
+
         $response = new Response($fileContent);
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
