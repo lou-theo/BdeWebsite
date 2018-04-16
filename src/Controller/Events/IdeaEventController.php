@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Events;
 
 use App\Entity\IdeaEvent;
 use App\Form\IdeaEventForm;
@@ -8,18 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class EventController extends Controller
+class IdeaEventController extends Controller
 {
-    /**
-     * @Route("/evenements", name="future_event")
-     */
-    public function indexAction()
-    {
-        return $this->render('event/index.html.twig', [
-            'controller_name' => 'EventController',
-        ]);
-    }
-
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -54,12 +44,23 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/evenements/passes", name="past_event")
+     * @param int $idIdeaEvent
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/evenements/boite-a-idee/{idIdeaEvent}", name="idea_event_details", requirements={"idIdeaEvent" = "\d+"})
      */
-    public function pastEventAction()
+    public function pastEventDetailsAction(int $idIdeaEvent)
     {
-        return $this->render('event/past_event.html.twig', [
-            'controller_name' => 'EventController',
+        $pastEvent = $this->getDoctrine()
+            ->getRepository(IdeaEvent::class)
+            ->findOneBy(['id' => $idIdeaEvent]);
+
+        if (!$pastEvent) {
+            throw $this->createNotFoundException('Aucune proposition d\'évènement associé à l\'url');
+        }
+
+        return $this->render('event/idea_event_details.html.twig', [
+            'pastEvent' => $pastEvent,
         ]);
     }
 }
