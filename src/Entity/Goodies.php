@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GoodiesRepository")
  * @ORM\Table(name="goodies")
+ * @Vich\Uploadable
  */
 class Goodies
 {
@@ -37,9 +40,16 @@ class Goodies
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=255)
      */
-    private $pictureFileName;
+    private $picture;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="goodies", fileNameProperty="picture")
+     */
+    private $pictureFile;
 
     /**
      * @var int
@@ -63,7 +73,7 @@ class Goodies
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -71,7 +81,7 @@ class Goodies
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -87,7 +97,7 @@ class Goodies
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -103,23 +113,39 @@ class Goodies
     /**
      * @return string
      */
-    public function getPictureFileName(): string
+    public function getPicture(): ?string
     {
-        return $this->pictureFileName;
+        return $this->picture;
     }
 
     /**
-     * @param string $pictureFileName
+     * @param null|string $picture
      */
-    public function setPictureFileName(string $pictureFileName): void
+    public function setPicture(?string $picture): void
     {
-        $this->pictureFileName = $pictureFileName;
+        $this->picture = $picture;
+    }
+
+    /**
+     * @return File
+     */
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param File $pictureFile
+     */
+    public function setPictureFile(File $pictureFile): void
+    {
+        $this->pictureFile = $pictureFile;
     }
 
     /**
      * @return int
      */
-    public function getPrice(): int
+    public function getPrice(): ?int
     {
         return $this->price;
     }

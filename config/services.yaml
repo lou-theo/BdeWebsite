@@ -10,6 +10,9 @@ parameters:
     mailer_port: 25
     mailer_encryption: null
 
+    app.path.event_images: /Image/Event
+    app.path.goodies_images: /Image/Goodies
+
 services:
     # default configuration for services in *this* file
     _defaults:

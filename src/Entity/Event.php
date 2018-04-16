@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @ORM\Table(name="event")
+ * @Vich\Uploadable
  */
 class Event
 {
@@ -42,6 +45,13 @@ class Event
     private $picture;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="event", fileNameProperty="picture")
+     */
+    private $pictureFile;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -73,7 +83,7 @@ class Event
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -81,7 +91,7 @@ class Event
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -97,7 +107,7 @@ class Event
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -113,7 +123,7 @@ class Event
     /**
      * @return string
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
@@ -127,9 +137,25 @@ class Event
     }
 
     /**
+     * @return File
+     */
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param File $pictureFile
+     */
+    public function setPictureFile(File $pictureFile): void
+    {
+        $this->pictureFile = $pictureFile;
+    }
+
+    /**
      * @return \DateTime
      */
-    public function getEventDate(): \DateTime
+    public function getEventDate(): ?\DateTime
     {
         return $this->eventDate;
     }
@@ -145,7 +171,7 @@ class Event
     /**
      * @return int
      */
-    public function getPrice(): int
+    public function getPrice(): ?int
     {
         return $this->price;
     }
