@@ -93,7 +93,7 @@ class User implements UserInterface
     /**
      * @return null|string|void
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return null;
     }
@@ -116,7 +116,7 @@ class User implements UserInterface
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -142,7 +142,7 @@ class User implements UserInterface
      */
     public function getLastName(): ?string
     {
-        return $this->lastName;
+        return mb_strtoupper($this->lastName);
     }
 
     /**
@@ -226,7 +226,6 @@ class User implements UserInterface
         return true;
     }
 
-
     /**
      * @return null|array
      */
@@ -234,6 +233,15 @@ class User implements UserInterface
     {
         return $this->roles;
     }
+
+    /**
+     * @param null|array $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
     /**
      * @param Notification $notification
      */
@@ -256,5 +264,13 @@ class User implements UserInterface
     public function getNotifications()
     {
         return $this->notifications;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstName() . ' ' . mb_strtoupper($this->getLastName());
     }
 }

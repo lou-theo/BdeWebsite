@@ -29,7 +29,7 @@ class Category
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -37,7 +37,7 @@ class Category
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -48,5 +48,13 @@ class Category
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): ?string
+    {
+        return $this->name . ' (id '. $this->getId() . ')';
     }
 }
