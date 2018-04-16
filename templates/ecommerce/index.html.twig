@@ -6,48 +6,36 @@
 
     <input id="search" type="search" placeholder="Entrez un mot-clef" name="the_search">
 
-    <div id="ListeGoodies">
-        {#Produit : Casquette#}
+   {# <div class="container_login">
+        {% for goodies in goodiesList %}
         <div class="element">
-            <img class="goodies" src="{{ asset('Image/Goodies/casquette.jpg') }}" id="casquette" alt="casquette" />
-                <span id="txt">
-                    Casquette Exia : (15€)
-                    L'été arrive !
-                </span>
+            <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.PictureFileName)}}" />
+            {{ goodies.name }} : ({{  goodies.price}}€){{  goodies.description }}
         </div>
+        {% endfor %}
+        </div>#}
+    <div class="elem">
+        {% for goodies in goodiesList %}
+            <div style="width: 25%;text-align: center">
+     <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.PictureFileName)}}" style="width: 40%" /><br/>
+     <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
+            <br/>
+     </div>
+{% endfor %}
+</div>
 
-        {#Produit : Mug#}
-        <div class="element">
-            <img class="goodies" src="{{ asset('Image/Goodies/mug.jpg') }}" id="mug" alt="mug" />
-                <span id="txt">
-                    Mug Exia : (10€)
-                    Pas meilleur mug pour déguster son petit déjeuner !
-                </span>
-        </div>
 
-        {#Produit : Ballon#}
-        <div class="element">
-            <img class="goodies"  src="{{ asset('Image/Goodies/ballon.jpg') }}" id="ballon" alt="ballon" />
-                <span id="txt">
-                    Ballon Exia : (15€)
-                    Description : afin de passer de bons moments entre amis
-                </span>
-        </div>
-
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-
-    </div>
-
-    <div id="PopularGoodies">
-
-    </div>
-
+{#  <div style="height: 20px"></div>
+<div class="contener_objet" >
+{% for ideaEvent in ideaEventList %}
+   <div class="objet ">
+       <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~ideaEvent.picture)}}"></a>
+       <p style="font-size: 25px" class="titre alert alert-primary">{{ ideaEvent.title }}</p>
+       <p class="description ">{{ ideaEvent.description }}</p>
+       <p class="nom"> Proposé par : {{ ideaEvent.userOwner.firstName }}
+           {{ ideaEvent.userOwner.lastName }}</p>
+   </div>
+{% endfor %}
+</div>
+#}
 {% endblock %}

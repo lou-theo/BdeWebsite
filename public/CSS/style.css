@@ -10,6 +10,12 @@
     display: flex;
     justify-content: space-between;
 }
+.container_login{
+     display: flex;
+     justify-content: space-between;
+     margin-top: 40px;
+     margin-bottom: 40px;
+ }
 .btn-danger{
     background-color: #c61324;
     border-color: #b21325;
@@ -42,80 +48,23 @@
     margin-top: 25px;
 }
 .goodies{
-    width: 300px;
     border: 2px solid red;
-    padding: 25px;
-    margin: 25px;
-}
-.goodies{
-    width: 10%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: 25px;
-    margin-left: 500px;
 }
-#casquette{
-    right: 16px;
-    font-size: 18px;
+img{
+    width: 15%;
 }
-#mug {
+.element{
+}
+.desc{
+    margin-left: 28%;
+    margin-right: 28%;
+}
+.nomprix{
 
-    right: 200px;
-    font-size: 18px;
 }
-#ballon {
-
-    right: 384px;
-    font-size: 18px;
-}
-#ListeGoodies,#ballon,#txt{
-    position: static;
-}
-#ListeGoodies,#mug,#txt{
-    position: static;
-}
-#ListeGoodies,#casquette,#txt{
-     position: static;
- }
-#ListeGoodies
-{
-    display: flex;
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: center;
-    align-items: right;
-}
-}
-.element:nth-child(1)
-{
-    order: 3;
-}
-.element:nth-child(2)
-{
-    order: 1;
-}
-.element:nth-child(3)
-{
-    order: 2;
-}
-[type="search"] {
-    -webkit-appearance: textfield;
-    -webkit-box-sizing: content-box;
-    position: static;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    line-height: 15px;
-    padding: 6px 10px 6px 0;
-    margin: 0;
-    border: 0;
-    height: 33px;
-    font-family: arial,sans-serif;
-    font-size: 15px;
-    background: 0 0;
-    color: #111;
-    outline: 0;
-    -webkit-appearance: none;
-    box-shadow: none;
-    text-indent: 8px;
+.elem{
+    display: flex;flex-wrap: wrap;
+    margin-top: 50px;
+    margin-bottom: 50px
 }
