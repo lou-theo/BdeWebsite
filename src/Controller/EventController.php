@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Entity\IdeaEvent;
 use App\Form\IdeaEventForm;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 class EventController extends Controller
 {
@@ -18,6 +22,24 @@ class EventController extends Controller
         return $this->render('event/index.html.twig', [
             'controller_name' => 'EventController',
         ]);
+    }
+
+    /**
+     * @Route("/evenements/csv", name="download_csv")
+     **/
+    public function downloadFileAction()
+    {
+        $filename = 'Liste_participants.pdf';
+
+        $fileContent = "Test";
+        $response = new Response($fileContent);
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_INLINE,
+            $filename
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
     }
 
     /**
