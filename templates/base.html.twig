@@ -93,7 +93,12 @@
                 return true;
             }
         }
-
+        function verification(champ)
+        {
+            if (champ.value <1){
+                champ.value = 1
+            }
+        }
 
 
         var $el, $ps, $up, totalHeight;
@@ -125,6 +130,7 @@
             return false;
 
         });
+
     </script>
 </html>
 
