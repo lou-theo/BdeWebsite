@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div><button type="button" class="btn btn-danger ">Boutique</button></div>
-                    <div><button type="button" class="btn btn-danger ">Contact</button></div>
+                    <div><a href="{{ path('contact') }}"> <button type="button" class="btn btn-danger ">Contact</button></a></div>
 
                 </div>
             </div>
@@ -58,7 +58,7 @@
         {% endblock %}
         <footer>
             <div class="container-fluid redd contain">
-                <div class="team">Crée par la Team Gaming </div>
+                <div class="team">Crée par La Team du BDE de reims </div>
                 <div class="copyright"><a href="{{ path('cgu-mention') }}"> ©Copyright Bde Incorporation</a></div>
                 <div class="logo">
                     <a href="https://twitter.com/BDE_ExiaReims"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
@@ -72,4 +72,59 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         {% endblock %}
     </body>
+    <script>
+        function surligne(champ, erreur)
+        {
+            if(erreur)
+                champ.style.backgroundColor = "#fba";
+            else
+                champ.style.backgroundColor = "";
+        }
+        function verif(champ)
+        {
+            if(champ.value.length == 0)
+            {
+                surligne(champ, true);
+                return false;
+            }
+            else
+            {
+                surligne(champ, false);
+                return true;
+            }
+        }
+
+
+
+        var $el, $ps, $up, totalHeight;
+
+        $(".sidebar-box .button").click(function() {
+
+            totalHeight = 0
+
+            $el = $(this);
+            $p  = $el.parent();
+            $up = $p.parent();
+            $ps = $up.find("p:not('.read-more')");
+
+            $ps.each(function() {
+                totalHeight += $(this).outerHeight();
+            });
+
+            $up
+                .css({
+                    "height": $up.height(),
+                    "max-height": 9999
+                })
+                .animate({
+                    "height": totalHeight
+                });
+
+            $p.fadeOut();
+
+            return false;
+
+        });
+    </script>
 </html>
+
