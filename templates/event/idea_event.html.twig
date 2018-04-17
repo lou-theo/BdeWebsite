@@ -22,6 +22,9 @@
                 <p class="description ">{{ ideaEvent.description }}</p>
                 <p class="nom"> Proposé par : {{ ideaEvent.userOwner.firstName }}
                  {{ ideaEvent.userOwner.lastName }}</p>
+                {% if is_granted('ROLE_BDE') %}
+                    <button class="btn btn-danger btn-compte">Accepter l'idée</button>
+                {% endif %}
             </div>
         {% endfor %}
        </div>

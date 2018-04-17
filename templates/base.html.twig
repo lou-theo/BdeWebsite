@@ -20,7 +20,7 @@
                     </div>
                     <div>
 
-                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}{#{% if is_granted('ROLE_BDE') %}#}
                             <div class="dropdown">
                                 <button class="btn btn-danger btn-compte">Mon compte</button>
                                 <div class="dropdown-content">
@@ -42,7 +42,7 @@
                         <div class="dropdown-content">
                             <a href="{{ path('future_event') }}">Evénements à venir</a>
                             <a href="{{ path('event_idea') }}">Boite a Idées</a>
-                            <a href="#">Evénements passés</a>
+                            <a href="{{ path('past_event') }}">Evénements passés</a>
                         </div>
                     </div>
                     <div><a href="{{ path('ecommerce') }}"> <button type="button" class="btn btn-danger ">Boutique</button></a></div>

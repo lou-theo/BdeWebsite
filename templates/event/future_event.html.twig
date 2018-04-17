@@ -4,4 +4,54 @@
 
 {% block body %}
 
+    {% if futureEventList is empty %}
+        <div class="container_login">
+            <div ></div>
+            <p style="text-align: center" class="alert alert-warning">
+                Il n'y a actuellement aucun évènement a venir
+            </p>
+            <div></div>
+        </div>
+    {% else %}
+        <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center" class="alert-secondary alert">Liste des evénements à venir :</h3>
+        <div style="height: 20px"></div>
+        <div class="contener_objet" >
+        {% for event in futureEventList %}
+            <div class="objet ">
+
+            <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~event.picture)}}"></a>
+            <p style="font-size: 25px" class="titre alert alert-primary">{{ event.title }}</p>
+            <p class="description "> {{ event.description }}<br/><br/>
+            <div class="participe alert alert-info ">
+
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% if  event.usersParticipate|length == 0 %}
+                    Soyez le premier a participer a cet evenement pour seulement :
+                {% endif %}
+                {% if event.usersParticipate|length == 1 %}
+                    {{ event.usersParticipate|length }} Personne participe actuellement a cet evenement, rejoignez la pour seulement :
+                {% endif %}
+                {% if  event.usersParticipate|length > 1 %}
+                    Actuellement, {{ event.usersParticipate|length }} personnes participent a cet evenements rejoignez les pour seulement :
+                {% endif %}
+                {{ event.price }} € <br />
+                </div>
+                <button type="button" class="btn btn-danger ">Je participe !</button></p>
+            {% else %}
+                Pour pouvoir participer vous devez être connecté :</div>
+                <a href="{{ url('login') }}" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
+            {% endif %}
+            {% if is_granted('ROLE_BDE') %}
+                <button class="btn btn-danger btn-compte">Récuperer les participants</button>
+            {% endif %}
+
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+
+
+
+
 {% endblock %}
