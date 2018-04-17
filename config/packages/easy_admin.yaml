@@ -1,0 +1,102 @@
+easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+
+    site_name: 'BDE Exia Reims'
+
+    list:
+        title: 'Liste : %%entity_label%%'
+        actions:
+            - { name: 'show', icon: 'search', label: '' }
+            - { name: 'edit', icon: 'pencil', label: '' }
+            - { name: 'delete', icon: 'remove', label: '' }
+    show:
+        title: '%%entity_label%% (#%%entity_id%%)'
+    new:
+        title: "Ajouter %%entity_label%%"
+    edit:
+        title: "Modifier %%entity_label%%"
+
+    design:
+        brand_color: '#c61324'
+
+    entities:
+        Event:
+            class: App\Entity\Event
+            label: 'Evènements'
+            list:
+                sort: 'eventDate'
+                fields:
+                  - id
+                  - { property: 'title', label: 'Titre' }
+                  - { property: 'picture', type: 'image', base_path: '%app.path.event_images%' }
+                  - { property: 'eventDate', label: 'Date', type: 'datetime' }
+                  - { property: 'price', label: 'Prix', type_options: { currency: 'EUR' } }
+            show:
+                fields:
+                  - id
+                  - { property: 'title', label: 'Titre' }
+                  - { property: 'description', label: 'Description' }
+                  - { property: 'picture', type: 'image', base_path: '%app.path.event_images%' }
+                  - { property: 'eventDate', label: 'Date', type: 'datetime' }
+                  - { property: 'price', label: 'Prix', type_options: { currency: 'EUR' } }
+            form:
+                fields:
+                  - { property: 'title', label: 'Titre' }
+                  - { property: 'description', label: 'Description' }
+                  - { property: 'pictureFile', type: 'vich_image' }
+                  - { property: 'eventDate', label: 'Date', type: 'datetime' }
+                  - { property: 'price', label: 'Prix', type: 'integer' }
+        Goodies:
+            class: App\Entity\Goodies
+            label: 'Goodies'
+            list:
+                fields:
+                  - id
+                  - { property: 'name', label: 'Nom' }
+                  - { property: 'picture', type: 'image', base_path: '%app.path.goodies_images%' }
+                  - { property: 'price', label: 'Prix', type_options: { currency: 'EUR' } }
+                  - { property: 'categories', label: 'Catégories' }
+            show:
+                fields:
+                  - id
+                  - { property: 'name', label: 'Nom' }
+                  - { property: 'description', label: 'Description' }
+                  - { property: 'picture', type: 'image', base_path: '%app.path.goodies_images%' }
+                  - { property: 'price', label: 'Prix', type_options: { currency: 'EUR' } }
+                  - { property: 'categories', label: 'Catégories' }
+            form:
+                fields:
+                  - { property: 'name', label: 'Nom' }
+                  - { property: 'description', label: 'Description' }
+                  - { property: 'pictureFile', type: 'vich_image' }
+                  - { property: 'price', label: 'Prix', type: 'integer' }
+                  - { property: 'categories', label: 'Catégories' }
+        User:
+            class: App\Entity\User
+            label: 'Utilisateurs'
+            disabled_actions: ['new']
+            list:
+                fields:
+                  - id
+                  - { property: 'fullName', label: 'Nom Complet' }
+                  - { property: 'mail', label: 'Adresse mail' }
+                  - { property: 'roles', label: 'Rôles' }
+            show:
+                fields:
+                  - id
+                  - { property: 'firstName', label: 'Prénom' }
+                  - { property: 'lastName', label: 'Nom' }
+                  - { property: 'mail', label: 'Adresse mail' }
+                  - { property: 'roles', label: 'Rôles' }
+            form:
+                fields:
+                  - { property: 'firstName', label: 'Prénom' }
+                  - { property: 'lastName', label: 'Nom' }
+                  - { property: 'mail', label: 'Adresse mail' }
+                  - { property: 'roles', label: 'Rôles', type: choice, type_options: { multiple: true, choices: { 'Utilisateur de base': ROLE_USER, 'Membre CESI': ROLE_CESI, 'Membre BDE': ROLE_BDE } } }
+        Category:
+            class: App\Entity\Category
+            label: 'Catégories'

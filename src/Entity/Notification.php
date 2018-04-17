@@ -40,7 +40,7 @@ class Notification
      */
     private $viewed;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -48,7 +48,7 @@ class Notification
     /**
      * @return boolean
      */
-    public function getViewed()
+    public function getViewed(): ?bool
     {
         return $this->viewed;
     }
@@ -62,15 +62,15 @@ class Notification
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param mixed $type
+     * @param string $type
      */
     public function setType($type): void
     {
@@ -80,7 +80,7 @@ class Notification
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }

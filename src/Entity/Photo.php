@@ -75,7 +75,7 @@ class Photo
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -83,7 +83,7 @@ class Photo
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -99,7 +99,7 @@ class Photo
     /**
      * @return string
      */
-    public function getFileName(): string
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
@@ -115,7 +115,7 @@ class Photo
     /**
      * @return \DateTime
      */
-    public function getUpdatedDate(): \DateTime
+    public function getUpdatedDate(): ?\DateTime
     {
         return $this->updatedDate;
     }
@@ -152,7 +152,7 @@ class Photo
     /**
      * @return User
      */
-    public function getUserOwner(): User
+    public function getUserOwner(): ?User
     {
         return $this->userOwner;
     }
@@ -168,7 +168,7 @@ class Photo
     /**
      * @return Event
      */
-    public function getEvent(): Event
+    public function getEvent(): ?Event
     {
         return $this->event;
     }
