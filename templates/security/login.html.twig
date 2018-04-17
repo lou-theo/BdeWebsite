@@ -12,12 +12,13 @@
            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
        {% endif %}
        <div class="form-group">
+           <h3 style="margin-bottom: 20px;text-align: center" class="alert-secondary alert">Connexion :</h3>
            <label for="username">Adresse Mail :</label>
-           <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" aria-describedby="emailHelp" placeholder="Enter email">
+           <input type="text" onblur="verif(this)" class="form-control" id="username" name="_username" value="{{ last_username }}" aria-describedby="emailHelp" placeholder="Enter email">
        </div>
        <div class="form-group">
            <label for="password">Mot de passe :</label>
-           <input type="password" id="password" name="_password" class="form-control" placeholder="Password">
+           <input type="password" onblur="verif(this)"id="password" name="_password" class="form-control" placeholder="Password">
            <input type="hidden" name="_target_path" value="/" />
 
            <input type="checkbox" id="remember_me" name="_remember_me" />
@@ -31,4 +32,5 @@
    </form>
         <div ></div>
     </div>
+
 {% endblock %}
