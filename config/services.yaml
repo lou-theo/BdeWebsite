@@ -12,6 +12,7 @@ parameters:
 
     app.path.event_images: /Image/Event
     app.path.goodies_images: /Image/Goodies
+    app.path.photo_event_images: /Image/PhotoEvent
 
 services:
     # default configuration for services in *this* file

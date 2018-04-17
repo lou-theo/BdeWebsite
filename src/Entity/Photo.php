@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
  * @ORM\Table(name="photo")
+ * @Vich\Uploadable
  */
 class Photo
 {
@@ -30,9 +33,16 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     private $fileName;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="photo_event", fileNameProperty="fileName")
+     */
+    private $file;
 
     /**
      * @var \DateTime
@@ -42,7 +52,7 @@ class Photo
     private $updatedDate;
 
     /**
-     * @var array
+     * @var array|ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\User", cascade={"persist"})
      */
@@ -63,6 +73,13 @@ class Photo
      * @ORM\JoinColumn(nullable=false)
      */
     private $event;
+
+    /**
+     * @var array|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="photo")
+     */
+    private $comments;
 
     /**
      * Photo constructor.
@@ -110,6 +127,22 @@ class Photo
     public function setFileName(string $fileName): void
     {
         $this->fileName = $fileName;
+    }
+
+    /**
+     * @return File
+     */
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File $file
+     */
+    public function setFile(File $file): void
+    {
+        $this->file = $file;
     }
 
     /**
@@ -181,4 +214,11 @@ class Photo
         $this->event = $event;
     }
 
+    /**
+     * @return array|ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }
