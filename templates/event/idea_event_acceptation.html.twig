@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+    <p>
+        Ancienne image : <img src="{{ asset('Image/Event/' ~ event.picture) }}">
+    </p>
+        {{ form_row(form.pictureFile) }}
+        {{ form_row(form.eventDate) }}
+        {{ form_row(form.price) }}
+    <button type="submit" >Valider</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -19,8 +19,11 @@ class FutureEventController extends Controller
             ->getRepository(Event::class)
             ->findAllFutureEvent();
 
+        $user = $this->getUser();
+
         return $this->render('event/future_event.html.twig', [
             'futureEventList' => $futureEventList,
+            'user' => $user,
         ]);
     }
 
@@ -40,30 +43,48 @@ class FutureEventController extends Controller
             throw $this->createNotFoundException('Aucun évènement associé à l\'url');
         }
 
+        if ($futureEvent->getEventDate() < new \DateTime("now")) {
+            return $this->redirectToRoute('past_event_details', ['idEvent' => $idEvent]);
+        }
+
+        $user = $this->getUser();
+
         return $this->render('event/future_event_details.html.twig', [
             'futureEvent' => $futureEvent,
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/evenements/{eventnum}/csv", name="download_csv")
-     **/
-    public function downloadFileAction(int $eventnum)
+     * @param int $idEvent
+     * @return Response
+     *
+     * @Route("/evenements/csv/{idEvent}", name="download_csv", requirements={"idEvent" = "\d+"})
+     */
+    public function downloadFileAction(int $idEvent)
     {
-        $list = array(array('aaa', 'bbb', 'ccc', 'dddd'),
-            array(155, 515, 516, 546));
+        $this->denyAccessUnlessGranted('ROLE_BDE', null, 'Vous n\'avez pas accès à cette fonction !');
+
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->findOneBy(['id' => $idEvent]);
+
+        if (!$event) {
+            throw $this->createNotFoundException('Aucun évènement associé à l\'url');
+        }
+
+        $list = $event->getUsersParticipate();
 
         $filename = 'liste_participants.csv';
 
         $fileContent="";
-        $unite="";
         foreach($list as $line)
         {
             foreach($line as $unite)
             {
                 $fileContent.= $unite . ",";
             }
-            $fileContent.= "<br>";
+            $fileContent.= "\n";
         }
 
 

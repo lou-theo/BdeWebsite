@@ -44,7 +44,7 @@ class Comment
     /**
      * @var Photo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Photo")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Photo", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $photo;

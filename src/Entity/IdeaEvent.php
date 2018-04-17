@@ -120,9 +120,9 @@ class IdeaEvent
     }
 
     /**
-     * @param string $picture
+     * @param null|string $picture
      */
-    public function setPicture(string $picture): void
+    public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
     }

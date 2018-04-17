@@ -3,5 +3,26 @@
 {% block title %} {{ parent() }}{% endblock %}
 
 {% block body %}
+    {# descriptif de l'event toussa #}
+    Ajouter une image
+    {{ form_start(photoForm) }}
+        {{ form_row(photoForm.title) }}
+        {{ form_row(photoForm.file) }}
+        <button type="submit" >Ajouter la photo</button>
+    {{ form_end(photoForm) }}
 
+    {% for photo in photos %}
+        {{ photo.title }}
+        {{ photo.fileName }}
+        {% for comment in photo.comments %}
+            {{ comment.message }}
+        {% endfor %}
+
+        {% set form =  commentForm.createView %}
+        {{ form_start(form) }}
+            {{ form_row(form.message) }}
+            {{ form_row(form.idPhoto, {'attr': {'value': photo.id}}) }}
+            <button type="submit" >Envoyer !</button>
+        {{ form_end(form) }}
+    {% endfor %}
 {% endblock %}
