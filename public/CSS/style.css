@@ -52,6 +52,28 @@
 }
 .team{
     margin-top: 25px;
+}
+.goodies{
+    border: 2px solid red;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+img{
+    width: 15%;
+}
+.element{
+}
+.desc{
+    margin-left: 28%;
+    margin-right: 28%;
+}
+.nomprix{
+
+}
+.elem{
+    display: flex;flex-wrap: wrap;
+    margin-top: 50px;
+    margin-bottom: 50px
+}
     text-align: center;
 }
 .con{
