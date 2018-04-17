@@ -4,26 +4,55 @@
 
 {% block body %}
 
-    <input id="search" type="search" placeholder="Entrez un mot-clef" name="the_search">
 
-   {# <div class="container_login">
+ <div  class="container bare container_login">
+     <div class="dropdown">
+         <a href="{{ path('future_event') }}"> <button class="btn btn-danger" style="margin-top: 9px;margin-left: 20%">Catégories</button></a>
+         <div class="dropdown-content" style="margin-left: 20%;" >
+             <a href="#">Tête</a>
+             <a href="#">Haut</a>
+             <a href="#">Bas</a>
+             <a href="#">Chaussures</a>
+         </div>
+     </div>
+     <input type="text" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
+ </div>
+    <h3> Articles les plus vendus :</h3>
+    <div  class="container-fluid separation"></div>
+    <div class="elem">
+
+
+
         {% for goodies in goodiesList %}
-        <div class="element">
-            <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.PictureFileName)}}" />
-            {{ goodies.name }} : ({{  goodies.price}}€){{  goodies.description }}
-        </div>
+            <div class="tout">
+                <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
+                <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
+                <div class="input-group mb-3 achat" >
+                    <div class="input-group-prepend " style="max-width: 80px;width: auto">
+                        <input type="number" class="form-control text-center" value="1" style=" " onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
+                    </div>
+                    <button  class="btn btn-outline-secondary test" type="button" >Acheter</button>
+                </div>
+            </div>
+
         {% endfor %}
-        </div>#}
+    </div>
+
+
+    <h3 > Tout les article :</h3>
+    <div  class="container-fluid separation"></div>
+
+
     <div class="elem">
         {% for goodies in goodiesList %}
-            <div style="width: 25%;text-align: center;margin-bottom: 50px">
+            <div class="tout">
      <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
      <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
-                <div class="input-group mb-3" style=" width: 170px;margin-left: 28%">
-                    <div class="input-group-prepend">
-                        <input type="number" class="form-control text-center" value="1" style=" width: 80px;">
+                <div class="input-group mb-3 achat " >
+                    <div class="input-group-prepend " style="max-width: 80px;width: auto">
+                        <input type="number" class="form-control text-center" value="1" style=" " onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
                     </div>
-                    <button class="btn btn-outline-secondary" type="button">Acheter</button>
+                    <button  class="btn btn-outline-secondary test" type="button" >Acheter</button>
                 </div>
             </div>
 

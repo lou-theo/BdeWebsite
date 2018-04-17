@@ -57,19 +57,24 @@
     border: 2px solid red;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 40%;
-    height: 49%;
+    height: auto;
+    max-height: 150px;
 }
 .element{
 }
 .desc{
     margin-left: 28%;
     margin-right: 28%;
+    max-height: 80px;
+    overflow: hidden;
 }
 .nomprix{
 
 }
 .elem{
-    display: flex;flex-wrap: wrap;
+    display: flex;
+    justify-content: spa;
+    flex-wrap: wrap;
     margin-top: 50px;
     margin-bottom: 50px
 }
@@ -113,6 +118,8 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    text-align: center;
+
 }
 
 /* Links inside the dropdown */
@@ -214,6 +221,43 @@ justify-content: left;
 }
 .alert-info{
 }
+.achat{
+    width: 170px;
+    margin-left: 17%;
+}
+.tout{
+    width: 19%;
+    text-align: center;
+    margin-bottom: 50px;
+    border: 3px dashed rgba(169,6,0,0.83);
+    padding: 20px;margin-left: 5%;
+    border-radius: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.recherche{
+    margin-bottom: 25px;
+    padding-right: 50px;
+    width: 20%;
+    margin-right: 0%;
+    margin-top: 5px
+
+}
+.separation{
+    height: 9px;
+    background-color: #d50000;
+    margin-left: 10%;width: 80%
+}
+h3{
+    margin-left: 14%;
+    color: #b51324
+}
+.bare{
+    height: 60px;
+    background-color: rgb(179,0,10);
+    margin-top: 20px;
+    text-align: right;
+}
 @media all and (max-width: 1024px){
     .fa-facebook-official , .fa-twitter{
         margin-left: 0px;
@@ -225,5 +269,24 @@ justify-content: left;
     .team , .copyright, .conn{
         font-size: 10px;
     }
-
+    .achat{
+        width: auto;
+    }
+    .desc{
+        font-size: 10px;
+        height: 45px ;
+    }
+    .nomprix{
+        font-size: 12px;
+        text-align: center;
+    }
+    .test{
+        font-size: 10px;
+    }
+    h3{
+        font-size: 15px;
+    }
+    .tout{
+        width: 40%;
+    }
 }
