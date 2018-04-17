@@ -188,6 +188,8 @@ justify-content: left;
     text-align: left;
     margin-left: 0%;
 }
+.alert-info{
+}
 @media all and (max-width: 1024px){
     .fa-facebook-official , .fa-twitter{
         margin-left: 0px;
