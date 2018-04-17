@@ -50,7 +50,7 @@ class Cart
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -58,7 +58,7 @@ class Cart
     /**
      * @return bool
      */
-    public function isBought(): bool
+    public function isBought(): ?bool
     {
         return $this->bought;
     }
@@ -74,7 +74,7 @@ class Cart
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }

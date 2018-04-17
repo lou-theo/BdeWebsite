@@ -57,7 +57,7 @@ class Comment
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -65,7 +65,7 @@ class Comment
     /**
      * @return string
      */
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -81,7 +81,7 @@ class Comment
     /**
      * @return \DateTime
      */
-    public function getUdatedDate(): \DateTime
+    public function getUdatedDate(): ?\DateTime
     {
         return $this->udatedDate;
     }
@@ -97,7 +97,7 @@ class Comment
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -113,7 +113,7 @@ class Comment
     /**
      * @return Photo
      */
-    public function getPhoto(): Photo
+    public function getPhoto(): ?Photo
     {
         return $this->photo;
     }

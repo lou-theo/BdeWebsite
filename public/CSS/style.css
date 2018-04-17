@@ -1,5 +1,5 @@
 .red{
-    height: 250px;
+    height: 280px;
     background-color: #c61324;
 }
 .redd{
@@ -11,38 +11,44 @@
     justify-content: space-between;
 }
 .container_login{
-     display: flex;
-     justify-content: space-between;
-     margin-top: 40px;
-     margin-bottom: 40px;
- }
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
 .btn-danger{
-    background-color: #c61324;
-    border-color: #b21325;
+    background-color: #b51324;
+    border-color: #9d1425;
     border-width: 3px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 .conn{
     align-content: right;
     margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .containeur{
     display: flex;
     justify-content: space-around;
 }
 .ima{
-    margin-left: 14%;
+    margin-bottom: 10px;
+    margin-left: -70px;
 }
 .contain{
     display: flex;
     justify-content: space-around;
 }
 .copyright{
-    font-size: 10px;
-    text-align: center  ;
+    font-size: 15px;
+    text-align: center;
     margin-top: 30px;
 }
 .logo{
     margin-top: 15px;
+
 }
 .team{
     margin-top: 25px;
@@ -67,4 +73,153 @@ img{
     display: flex;flex-wrap: wrap;
     margin-top: 50px;
     margin-bottom: 50px
+}
+    text-align: center;
+}
+.con{
+    height: 500px;
+    background-color: #bcb9bf;
+}
+.btn-primary{
+    float: right;
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin-top: 30px;
+}
+.fa-facebook-official , .fa-twitter{
+    margin-left: 20px;
+    transition:0.4s;
+}
+.fa-facebook-official:hover {
+    color: #3040af;
+
+}
+.fa-twitter:hover{
+    color: #24a1ff;
+}
+/* Dropdown Button */
+.dropbtn {
+    background-color:  #b51324;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+
+}
+a:hover{
+    color: #9d1425;
+}
+a{
+    color: #70141d;
+}
+p{
+    margin-bottom: 3px;
+    padding-bottom: 3px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.alert-primary{
+    padding-top: 5px;
+    padding-bottom:5px;
+    background: rgba(255, 0, 4, 0.26);
+    border-color: rgba(255, 0, 4, 0.44);
+    color: #a82228;
+}
+
+.btn-compte{
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+.conins{text-align: center;
+}
+.eror{
+
+box-shadow: #70141d;
+}
+.contener_objet{
+    display: flex;
+    flex-wrap: wrap;
+}
+.objet{
+    width: 98%;
+    height: 100%;
+margin-left: 1%;
+    margin-right: 1%;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom:  6px solid #9e0000;
+    padding-bottom: 20px;
+}
+.imagee{
+    float: left;
+    width: 25%;
+    height: 40%;
+}
+.nom,.titre,.description{
+    margin-left: 26%;
+}
+.nom{
+    color: #9d1425;
+    text-decoration: underline;
+    text-underline: #70141d;
+}
+.description{
+    overflow: hidden;
+    min-height: 150px;
+    max-height: 360px;
+    height: auto;
+}
+.description{
+}
+.accueil{
+    background: url("http://cite-saint-francois.fr/wp-content/uploads/2015/01/residence-etudiante-etudiants1.jpg") no-repeat ;
+    background-size: 100%;
+}
+.iframe {
+    margin-top: 90px;
+justify-content: left;
+    text-align: left;
+    margin-left: 0%;
+}
+@media all and (max-width: 1024px){
+    .fa-facebook-official , .fa-twitter{
+        margin-left: 0px;
+    }
+    .btn-danger{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .team , .copyright, .conn{
+        font-size: 10px;
+    }
+
 }

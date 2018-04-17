@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - {{ parent() }}{% endblock %}
+
+{% form_theme form _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block body %}
+
+    <div class="container_login">
+        <div ></div>
+
+        {{ form_start(form) }}
+
+            <div class="form-group">
+                {{ form_row(form.firstName) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.lastName) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.mail) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.plainPassword.first) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.plainPassword.second) }}
+            </div>
+
+            <div class="form-group form-check">
+                {{ form_widget(form.termsAccepted) }}
+                {{ form_label(form.termsAccepted) }}
+            <p>Les CGU du site sont lisibles <a style="color: #0000F0" href="{{ url('cgu-mention') }}">ici</a></p>
+            </div>
+
+            <div class="conins">
+            <button type="submit" class="btn btn-danger ">Inscription</button>
+                <p style="text-align:center;color: #b51324;text-decoration: underline;text-underline: #70141d">Déja un compte, connectez-vous ici :</p><a href="{{ path('login') }}"> <button type="button" class="btn btn-danger logi conins">Connexion</button></a>
+            </div>
+        {{ form_end(form) }}
+
+        <div ></div>
+
+    </div>
+{% endblock %}

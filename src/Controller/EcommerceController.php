@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Goodies;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class EcommerceController extends Controller
 {
