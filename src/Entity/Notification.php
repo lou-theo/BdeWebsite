@@ -31,14 +31,14 @@ class Notification
      *
      * @ORM\Column(type="string", length=20)
      */
-    private $type;
+    private $type = 'info';
 
     /**
      * @var boolean
      *
      * @ORM\Column(type="boolean")
      */
-    private $viewed;
+    private $viewed = false;
 
     public function getId(): ?int
     {

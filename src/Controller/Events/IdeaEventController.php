@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\IdeaEvent;
 use App\Form\EventForm;
 use App\Form\IdeaEventForm;
+use App\Service\NotificationSender;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -74,12 +75,13 @@ class IdeaEventController extends Controller
 
     /**
      * @param Request $request
+     * @param NotificationSender $notificationSender
      * @param int $idIdeaEvent
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/evenements/boite-a-idee/accept/{idIdeaEvent}", name="idea_event_acceptation", requirements={"idIdeaEvent" = "\d+"})
      */
-    public function ideaEventAcceptationAction(Request $request, int $idIdeaEvent)
+    public function ideaEventAcceptationAction(Request $request, NotificationSender $notificationSender,int $idIdeaEvent)
     {
         $this->denyAccessUnlessGranted('ROLE_BDE', null, 'Vous n\'avez pas accès à cette fonction !');
 
@@ -104,8 +106,10 @@ class IdeaEventController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
+            $notificationSender->sendNotificationToUser($ideaEvent->getUserOwner(), 'Nous vous informons que votre idée d\'évènement ' . $ideaEvent->getTitle() . 'a été retenu, bravo !');
             $em->remove($ideaEvent);
             $em->flush();
+
             return $this->redirectToRoute('event_idea');
         }
 
