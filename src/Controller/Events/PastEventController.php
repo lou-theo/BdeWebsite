@@ -112,7 +112,7 @@ class PastEventController extends Controller
      *
      * @Route("/ajax/photo/like/{idPhoto}", name="idea_photo_add_like", methods="GET", requirements={"idPhoto" = "\d+"})
      */
-    public function ajaxPhotoAddVote(int $idPhoto): JsonResponse
+    public function ajaxPhotoAddLike(int $idPhoto): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
@@ -145,7 +145,7 @@ class PastEventController extends Controller
      *
      * @Route("/ajax/photo/de-like/{idPhoto}", name="idea_photo_remove_like", methods="GET", requirements={"idPhoto" = "\d+"})
      */
-    public function ajaxPhotoRemoveVote(int $idPhoto): JsonResponse
+    public function ajaxPhotoRemoveLike(int $idPhoto): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 

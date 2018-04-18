@@ -69,7 +69,7 @@ class Photo
     /**
      * @var Event
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Event", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $event;
@@ -124,7 +124,7 @@ class Photo
     /**
      * @param string $fileName
      */
-    public function setFileName(string $fileName): void
+    public function setFileName(?string $fileName): void
     {
         $this->fileName = $fileName;
     }
