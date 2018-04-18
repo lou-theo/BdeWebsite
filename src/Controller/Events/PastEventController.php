@@ -7,6 +7,7 @@ use App\Entity\Event;
 use App\Entity\Photo;
 use App\Form\CommentForm;
 use App\Form\PhotoForm;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -102,5 +103,71 @@ class PastEventController extends Controller
             'photoForm' => $photoForm->createView(),
             'commentForm' => $commentForm,
         ]);
+    }
+
+    /**
+     * @param int $idPhoto
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/photo/like/{idPhoto}", name="idea_photo_add_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     */
+    public function ajaxPhotoAddVote(int $idPhoto): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findOneBy(['id' => $idPhoto]);
+
+        if (!$photo) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune photo associe a l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($photo->getUsersLike()->contains($user) ) {
+            return $this->json(['status' => 'error', 'message' => 'Vous avez deja like cette photo']);
+        }
+
+        $photo->addUserLike($user);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le like a bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idPhoto
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/photo/de-like/{idPhoto}", name="idea_photo_remove_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     */
+    public function ajaxPhotoRemoveVote(int $idPhoto): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findOneBy(['id' => $idPhoto]);
+
+        if (!$photo) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune photo associe a l url']);
+        }
+
+        $user = $this->getUser();
+
+        if (!$photo->getUsersLike()->contains($user) ) {
+            return $this->json(['status' => 'error', 'message' => 'Vous n avez pas like cette photo']);
+        }
+
+        $photo->removeUserLike($user);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le retrait du like bien ete pris en compte']);
     }
 }

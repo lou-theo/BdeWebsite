@@ -54,7 +54,7 @@ class Photo
     /**
      * @var array|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", cascade={"all"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", cascade={"persist"})
      */
     private $usersLike;
 
