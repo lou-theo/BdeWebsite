@@ -44,7 +44,7 @@ class Comment
     /**
      * @var Photo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Photo", inversedBy="comments", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Photo", inversedBy="comments", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $photo;
