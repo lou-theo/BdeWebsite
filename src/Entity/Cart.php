@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Cart
 {
+    const PURCHASING = 0;
+    const WAITING = 1;
+    const PAYED = 2;
+    const DELIVERED = 3;
+
     /**
      * @var int
      *
@@ -21,11 +26,18 @@ class Cart
     private $id;
 
     /**
-     * @var boolean
+     * @var int
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
-    private $bought;
+    private $state;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $purchaseDate;
 
     /**
      * @var User
@@ -35,16 +47,9 @@ class Cart
      */
     private $user;
 
-    /**
-     * @var array
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Goodies", cascade={"persist"})
-     */
-    private $goodiesList;
-
     public function __construct()
     {
-        $this->goodiesList = new ArrayCollection();
+        $this->state = self::PURCHASING;
     }
 
     /**
@@ -53,22 +58,6 @@ class Cart
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isBought(): ?bool
-    {
-        return $this->bought;
-    }
-
-    /**
-     * @param bool $bought
-     */
-    public function setBought(bool $bought): void
-    {
-        $this->bought = $bought;
     }
 
     /**
@@ -88,26 +77,34 @@ class Cart
     }
 
     /**
-     * @param Goodies $goodies
+     * @return int
      */
-    public function addGoodies(Goodies $goodies)
+    public function getState(): ?int
     {
-        $this->goodiesList[] = $goodies;
+        return $this->state;
     }
 
     /**
-     * @param Goodies $goodies
+     * @param int $state
      */
-    public function removeGoodies(Goodies $goodies)
+    public function setState(?int $state): void
     {
-        $this->goodiesList->removeElement($goodies);
+        $this->state = $state;
     }
 
     /**
-     * @return array|ArrayCollection
+     * @return \DateTime
      */
-    public function getGoodiesList()
+    public function getPurchaseDate(): ?\DateTime
     {
-        return $this->goodiesList;
+        return $this->purchaseDate;
+    }
+
+    /**
+     * @param \DateTime $purchaseDate
+     */
+    public function setPurchaseDate(?\DateTime $purchaseDate): void
+    {
+        $this->purchaseDate = $purchaseDate;
     }
 }

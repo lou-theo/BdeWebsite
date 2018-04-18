@@ -1,0 +1,11 @@
+{% if value == 0 %}
+    {% set value = "Fait des achats" %}
+{% elseif value == 1 %}
+    {% set value = "A passé commande" %}
+{% elseif value == 2 %}
+    {% set value = "En attente de réception de la commande" %}
+{% elseif value == 3 %}
+    {% set value = "Commande reçu" %}
+{% endif %}
+
+{{ value }}

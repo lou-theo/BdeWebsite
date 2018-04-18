@@ -100,3 +100,23 @@ easy_admin:
         Category:
             class: App\Entity\Category
             label: 'Catégories'
+
+        Cart:
+            class: App\Entity\Cart
+            label: 'Panier boutique'
+            disabled_actions: ['new', 'delete']
+            list:
+                fields:
+                  - id
+                  - { property: 'user.fullName', label: 'Nom propriétaire panier' }
+                  - { property: 'state', label: 'Etat du panier', template: 'easy_admin/cart_state.html.twig' }
+                  - { property: 'purchaseDate', label: 'Date de commande', type: 'datetime' }
+            show:
+                fields:
+                  - id
+                  - { property: 'user.fullName', label: 'Nom propriétaire panier' }
+                  - { property: 'state', label: 'Etat du panier' }
+                  - { property: 'purchaseDate', label: 'Date de commande', type: 'datetime' }
+            form:
+                fields:
+                  - { property: 'state', label: 'Etat du panier', type: choice, type_options: { multiple: false, choices: { 'Fait des achats': 0, 'A passé commande': 1, 'En attente de réception de la commande': 2, 'Commande reçu': 3 } } }
