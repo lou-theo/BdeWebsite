@@ -54,7 +54,7 @@ class Photo
     /**
      * @var array|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", cascade={"all"}, orphanRemoval=true)
      */
     private $usersLike;
 
@@ -62,22 +62,22 @@ class Photo
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $userOwner;
 
     /**
      * @var Event
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Event")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", cascade={"all"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $event;
 
     /**
      * @var array|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="photo")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="photo", cascade={"all"}, orphanRemoval=true)
      */
     private $comments;
 
