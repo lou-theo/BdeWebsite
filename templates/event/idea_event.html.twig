@@ -19,7 +19,7 @@
             <div class="objet ">
                 <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~ideaEvent.picture)}}"></a>
                 <p style="font-size: 25px" class="titre alert alert-primary">{{ ideaEvent.title }}</p>
-                <p class="description ">{{ ideaEvent.description }}</p>
+                <p >{{ ideaEvent.description }}</p>
                 <p class="nom"> Proposé par : {{ ideaEvent.userOwner.firstName }}
                  {{ ideaEvent.userOwner.lastName }}</p>
 
@@ -32,7 +32,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_BDE') %}
-                    <button class="btn btn-danger btn-compte">Accepter l'idée</button>
+                    <a href="{{ url('idea_event_acceptation',{"idIdeaEvent": ideaEvent.id}) }}" ><button class="btn btn-danger btn-compte">Accepter l'idée</button></a>
                 {% endif %}
             </div>
         {% endfor %}

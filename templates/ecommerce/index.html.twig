@@ -23,7 +23,7 @@
 
 
 
-        {% for goodies in goodiesList %}
+        {% for goodies in topGoodiesList %}
             <div class="tout">
                 <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
                 <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
