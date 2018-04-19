@@ -11,6 +11,7 @@
               integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
               crossorigin="anonymous">
 
+        <link rel="icon" type="image/png" href="{{ asset('Image/Logo.png') }}" />
         <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
     {% endblock %}
 
@@ -157,10 +158,73 @@
 
         $p.fadeOut();
 
-        return false;
+            return false;
+        });
 
-    });
+        function ajaxBoutonEvent(url, element) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.addEventListener('readystatechange', function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    element.parentNode.removeChild(element);
+                }
+            });
+            xhr.send(null);
+        }
 
-</script>
+    function ajaxToggleLike(url, element) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response['message'] === 'add') {
+                    element.innerHTML = 'Retirer Like <span class="badge badge-light">' + response['number'] + '</span>'
+                } else if (response['message'] === 'remove') {
+                    element.innerHTML = 'Like <span class="badge badge-light">' + response['number'] + '</span>'
+                }
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxDeleteComment(url, element) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                element.parentNode.parentNode.parentNode.removeChild(element.parentNode.parentNode);
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxDeletePhoto(url, element) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                element.parentNode.parentNode.parentNode.removeChild(element.parentNode.parentNode);
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxAddGoodies(url, element, quantity) {
+        var xhr = new XMLHttpRequest();
+        url = url.slice(0, -1)+quantity;
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+            }
+        });
+        xhr.send(null);
+    }
+
+    </script>
 </html>
 

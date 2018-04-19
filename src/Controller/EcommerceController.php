@@ -42,6 +42,46 @@ class EcommerceController extends Controller
     }
 
     /**
+     * @param string $category
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/boutique/categorie/{category}", name="category_search")
+     */
+    public function categorySearchAction(string $category)
+    {
+        $categorySearch = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findOneBy(['name' => $category]);
+
+        if (!$categorySearch) {
+            throw $this->createNotFoundException('Aucune catégorie associé à l\'url');
+        }
+
+        $goodiesList = $this->getDoctrine()
+            ->getRepository(Goodies::class)
+            ->findAllGoodiesByCategory($categorySearch);
+
+        $cartGoodies = $this->getDoctrine()
+            ->getRepository(CartGoodies::class)
+            ->findMostPopularGoodies();
+
+        $topGoodiesList = [];
+        foreach ($cartGoodies as $item) {
+            $topGoodiesList[] = $item->getGoodies();
+        }
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
+
+        return $this->render('ecommerce/index.html.twig', [
+            'goodiesList' => $goodiesList,
+            'topGoodiesList' => $topGoodiesList,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
      * @Route("/boutique/paniers", name="all_my_carts")
      */
     public function allMyCartsAction()

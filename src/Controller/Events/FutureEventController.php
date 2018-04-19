@@ -136,7 +136,7 @@ class FutureEventController extends Controller
      *
      * @Route("/evenements/csv/{idEvent}", name="download_csv", requirements={"idEvent" = "\d+"})
      */
-    public function downloadFileAction(int $idEvent)
+    public function downloadCsvAction(int $idEvent)
     {
         $this->denyAccessUnlessGranted('ROLE_BDE', null, 'Vous n\'avez pas accès à cette fonction !');
 
@@ -152,22 +152,20 @@ class FutureEventController extends Controller
 
         $filename = 'liste_participants.csv';
 
-        $fileContent="";
+        $fileContent="id, prenom, NOM, mail\n";
         foreach($list as $line)
         {
-            foreach($line as $unite)
-            {
-                $fileContent.= $unite . ",";
-            }
+
+            $fileContent.= $line->getId() . ", " . $line->getFirstName() . ", " . $line->getLastName() . ", " . $line->getMail();
             $fileContent.= "\n";
         }
 
 
         $response = new Response($fileContent);
         $disposition = $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $filename
-        );
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $filename
+    );
 
         $response->headers->set('Content-Disposition', $disposition);
         return $response;

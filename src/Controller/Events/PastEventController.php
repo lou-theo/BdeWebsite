@@ -7,8 +7,11 @@ use App\Entity\Event;
 use App\Entity\Photo;
 use App\Form\CommentForm;
 use App\Form\PhotoForm;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -106,11 +109,58 @@ class PastEventController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param int $idEvent
+     * @return Response
+     *
+     * @Route("/evenements/passes/{idEvent}/download", name="download_picture_event", requirements={"idEvent" = "\d+"})
+     */
+    public function downloadPicture(Request $request, int $idEvent)
+    {
+        $this->denyAccessUnlessGranted('ROLE_CESI', null, 'Vous n\'avez pas accès à cette fonction !');
+        
+        $photos = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findBy(['event' => $idEvent]);
+
+        if (!$photos) {
+            throw $this->createNotFoundException('Aucun évènement ou photos associés à l\'url');
+        }
+
+        $zipname = 'photoEvent.zip';
+        $zip = new \ZipArchive();
+        $zip->open($zipname, \ZipArchive::CREATE);
+
+
+        $loop = 0;
+        foreach ($photos as $photo) {
+            $filename = $photo->getFileName();
+            $filepath = "C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\".$filename;
+            $zip->addFile('C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\'.$filename, 'photo'.$loop.'.jpg');
+            $loop++;
+        }
+        $zip->close();
+
+
+        $response = new Response();
+        /*$zippath = 'C:/wamp64/www/BdeWebsite/public/'.$zipname;
+        echo $zippath;
+
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $zipname);
+        $response->headers->set('Content-Disposition', $disposition);
+        //header("Content-Disposition: attachment; filename = $download");
+        $response->headers->set('Content-Type', 'application/zip');
+        */
+
+        return $response;
+    }
+
+    /**
      * @param int $idPhoto
      * @return JsonResponse
      * @throws \LogicException
      *
-     * @Route("/ajax/photo/like/{idPhoto}", name="idea_photo_add_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     * @Route("/ajax/photo/like/{idPhoto}", name="photo_add_like", methods="GET", requirements={"idPhoto" = "\d+"})
      */
     public function ajaxPhotoAddLike(int $idPhoto): JsonResponse
     {
@@ -143,7 +193,7 @@ class PastEventController extends Controller
      * @return JsonResponse
      * @throws \LogicException
      *
-     * @Route("/ajax/photo/de-like/{idPhoto}", name="idea_photo_remove_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     * @Route("/ajax/photo/de-like/{idPhoto}", name="photo_remove_like", methods="GET", requirements={"idPhoto" = "\d+"})
      */
     public function ajaxPhotoRemoveLike(int $idPhoto): JsonResponse
     {
@@ -169,5 +219,41 @@ class PastEventController extends Controller
         $em->flush();
 
         return $this->json(['status' => 'success', 'message' => 'Le retrait du like bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idPhoto
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/photo/toggle-like/{idPhoto}", name="photo_toggle_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     */
+    public function ajaxPhotoToggleLike(int $idPhoto): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findOneBy(['id' => $idPhoto]);
+
+        if (!$photo) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune photo associe a l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($photo->getUsersLike()->contains($user) ) {
+            $photo->removeUserLike($user);
+            $message = 'remove';
+        } else {
+            $photo->addUserLike($user);
+            $message = 'add';
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => $message, 'number' => count($photo->getUsersLike())]);
     }
 }
