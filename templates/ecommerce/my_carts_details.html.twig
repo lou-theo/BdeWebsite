@@ -3,22 +3,34 @@
 {% block title %} {{ parent() }}{% endblock %}
 
 {% block body %}
-    {{ cart.user }}
-    {% for cartGoodie in cartGoodies %}
+    {#{{ cart.user.firstName }}#}
+    <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center"
+        class="alert-secondary alert">Ton panier:</h3>
+    <div class="container_panier">
+        {% for cartGoodie in cartGoodies %}
 
-        <div class="tout">
-            <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
-            <div class="desc"> {{  cartGoodie.goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
-            <div class="input-group mb-3 achat">
-                <div class="input-group-prepend " style="max-width: 80px;width: auto">
-                    <input type="number" class="form-control text-center" value="1" style=" " onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
+            <div class="tout">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img class="goodies" src="{{ asset('Image/Goodies/'~cartGoodie.goodies.Picture) }}"/><br/>
+                <div class="desc"> {{ cartGoodie.goodies.description }}</div>
+                <div class="nomprix">{{ cartGoodie.goodies.name }} : ({{ cartGoodie.goodies.price }}€)</div>
+                <div class="input-group mb-3 achat">
+                    {% if cart.id ==0 %}
+                        <div class="input-group-prepend centrer" style="max-width: 80px;width: auto">
+                            <input type="number" class="form-control text-center" value="{{ cartGoodie.quantity }}"
+                                   style=" " onchange="verification(this)" oninput="verification(this)"
+                                   onselect="verification(this)">
+                        </div>
+                        <button class="btn btn-outline-secondary test" type="button">Acheter</button>
+                        {% else %}
+                            <div class="input-group-prepend centrer" >
+                                <span class="badge badge-danger droite">Quantité : {{ cartGoodie.quantity }}</span>
+                            </div>
+                    {% endif %}
                 </div>
-                <button  class="btn btn-outline-secondary test" type="button" >Acheter</button>
             </div>
-        </div>
-        {{ cartGoodie.goodies.name }}
-        {{ cartGoodie.quantity }}
-
-
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -27,12 +27,11 @@
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}{#{% if is_granted('ROLE_BDE') %}#}
                     <div class="dropdown">
                         <button class="btn btn-danger btn-compte">Mon compte</button>
-                        <div class="dropdown-content " >
+                        <div class="dropdown-content ">
                             <a href="{{ url('all_my_carts') }}">Mes Commandes</a>
-                            <a href="{{ url(' ') }}">Mes Commandes</a>
                             <a href="{{ url('logout') }}">Déconnexion</a>
                             {% if is_granted('ROLE_BDE') %}
-                            <a href="{{ url('admin') }}">Pannel Admin</a>
+                                <a href="{{ url('admin') }}">Pannel Admin</a>
                             {% endif %}
                             <a href="{{ url('notification') }}"> Notifications</a>
                         </div>
@@ -49,7 +48,7 @@
         <div class="container containeur">
             <div class="dropdown">
                 <a href="{{ path('future_event') }}">
-                    <button class="btn btn-danger">Evenement</button>
+                    <button class="btn btn-danger" style="padding-right: 45px;padding-left: 45px">Evenement</button>
                 </a>
                 <div class="dropdown-content">
                     <a href="{{ path('future_event') }}">Evénements à venir</a>
@@ -120,6 +119,17 @@
         }
     }
 
+    function rechercher(champ) {
+        {% for goodies in goodiesList %}
+        enlever("{{ goodies.name }}")
+        if ("{{ goodies.name }}".indexOf(champ.value) != -1) {
+            remettre("{{ goodies.name }}")
+        }
+        {% endfor %}
+    }
+    function enlever(stri) {document.getElementById(stri).hidden = true;}
+
+    function remettre(stri) {document.getElementById(stri).hidden = false;}
 
     var $el, $ps, $up, totalHeight;
 

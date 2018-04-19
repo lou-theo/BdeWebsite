@@ -3,5 +3,65 @@
 {% block title %} {{ parent() }}{% endblock %}
 
 {% block body %}
+    {# cart state :
+     0 vaut "En cours d'achat"
+      1 vaut "Commande passée"
+      2 vaut "En attente de réception de la commande"
+      3 vaut "Commande reçu"
+      #}
 
+    {% if allCarts is empty %}
+        <div class="alert alert-warning sepcen text-center">
+            Vous n'aver Jamais passé de commande sur notre site ! Allez voir du coté de <a href="{{ path('ecommerce') }}">
+                la boutique ! </a>
+        </div>
+    {% else %}
+
+        <h3> Vos commandes en cour :</h3>
+        <div class="container-fluid separation"></div>
+        {% for cart in allCarts %}
+            {% if cart.state !=3 %}
+                <div class="alert alert-success sepcen">
+                    {% if cart.state ==0 %}
+                        <div class="text-right">
+                            <div class="floater">
+                        Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} est en cour d'achat
+                            </div>
+                        <a href=" {{ url('my_carts_details', {'idCart': cart.id}) }}" ><button  class="btn btn-success decal" type="button" >Voir ma commande</button> </a>
+                        </div>
+                    {% endif %}
+                    {% if cart.state ==1 %}
+                        <div class="text-right">
+                            <div class="floater">
+                                Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} a bien été passée
+                            </div>
+                            <a href=" {{ url('my_carts_details', {'idCart': cart.id}) }}" ><button  class="btn btn-success decal" type="button" >Voir ma commande</button> </a>
+                        </div>
+                    {% endif %}
+                    {% if cart.state == 2 %}
+                        <div class="text-right">
+                            <div class="floater">
+                                Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} à bien été prise en compte merci de patientez jusqu'a la livraison
+                            </div>
+                            <a href=" {{ url('my_carts_details', {'idCart': cart.id}) }}" ><button  class="btn btn-success decal" type="button" >Voir ma commande</button> </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        <h3> Vos commandes finaliées :</h3>
+        <div class="container-fluid separation"></div>
+        {% for cart in allCarts %}
+            {% if cart.state ==3 %}
+                <div class="alert alert-info sepcen">
+                    <div class="text-right">
+                        <div class="floater">
+                            La commande du {{ cart.purchaseDate|date("d/m/Y") }} a été finalisée
+                        </div>
+                        <a href=" {{ url('my_carts_details', {'idCart': cart.id}) }}" ><button  class="btn btn-info decal" type="button" >Voir ma commande</button> </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}

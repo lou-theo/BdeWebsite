@@ -12,7 +12,7 @@
            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
        {% endif %}
        <div class="form-group">
-           <h3 style="margin-bottom: 20px;text-align: center" class="alert-secondary alert">Connexion :</h3>
+           <h3 style="margin-bottom: 20px;text-align: center;margin-left: 0" class="alert-secondary alert">Connexion</h3>
            <label for="username">Adresse Mail :</label>
            <input type="text" onblur="verif(this)" class="form-control" id="username" name="_username" value="{{ last_username }}"  placeholder="Email">
        </div>

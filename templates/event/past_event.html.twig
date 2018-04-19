@@ -23,7 +23,6 @@
                     <a href="{{ url('past_event_details',{"idEvent": event.id}) }}"><img class="imagee" src="{{ asset('Image/Event/'~event.picture)}}" ></a>
                     <p style="font-size: 25px" class="titre alert alert-primary">{{ event.title }}</p>
                     <p class="description "> {{ event.description }}<br/><br/>
-                        <div class="participe alert alert-info ">
 
                      {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 

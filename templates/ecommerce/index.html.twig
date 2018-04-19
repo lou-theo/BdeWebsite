@@ -15,7 +15,7 @@
              <a href="#">Chaussures</a>
          </div>
      </div>
-     <input type="text" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
+     <input type="text" onchange="rechercher(this)" oninput="rechercher(this)" onselect="rechercher(this)" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
  </div>
     <h3> Articles les plus vendus :</h3>
     <div  class="container-fluid separation"></div>
@@ -24,7 +24,8 @@
 
 
         {% for goodies in topGoodiesList %}
-            <div class="tout">
+
+            <div class="tout " >
                 <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
                 <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
                 <div class="input-group mb-3 achat" >
@@ -45,7 +46,7 @@
 
     <div class="elem">
         {% for goodies in goodiesList %}
-            <div class="tout">
+            <div  class="tout" id="{{ goodies.name }}">
      <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
      <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
                 <div class="input-group mb-3 achat " >
