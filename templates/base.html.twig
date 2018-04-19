@@ -128,8 +128,19 @@
             $p.fadeOut();
 
             return false;
-
         });
+
+        function ajaxBoutonEvent(url, element) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.addEventListener('readystatechange', function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    element.parentNode.removeChild(element);
+                }
+            });
+            xhr.send(null);
+        }
 
     </script>
 </html>
