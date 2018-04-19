@@ -65,6 +65,18 @@
     width: 40%;
     height: auto;
     max-height: 150px;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+.goodie{
+    border: 2px solid red;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 20%;
+    width: auto;
+    height: auto;
+    max-height: 150px;
+    margin-left: 40px;
+    margin-top: 20px;
 }
 .element{
 }
@@ -73,6 +85,14 @@
     margin-right: 28%;
     max-height: 80px;
     overflow: hidden;
+}
+.descr{
+    width: 16%;
+    margin-left: 3%;
+    margin-right: 28%;
+    max-height: 80px;
+    overflow: hidden;
+    margin-top: 10px;
 }
 .nomprix{
 
@@ -175,6 +195,9 @@ p{
 
 box-shadow: #70141d;
 }
+.number{
+    margin-left: 0px;
+}
 .contener_objet{
     display: flex;
     flex-wrap: wrap;
@@ -209,6 +232,14 @@ box-shadow: #70141d;
     max-height: 360px;
     height: auto;
 }
+.container_panier{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-right: 100px;
+    flex-wrap: wrap;
+}
 .description{
 }
 .desc{
@@ -221,7 +252,7 @@ box-shadow: #70141d;
 }
 .iframe {
     margin-top: 90px;
-justify-content: left;
+    justify-content: left;
     text-align: left;
     margin-left: 0%;
 }
@@ -229,32 +260,52 @@ justify-content: left;
 }
 .achat{
     width: 170px;
-    margin-left: 17%;
+    margin-left: 20%;
+}
+.close{
+    margin-right: 5px;
+}
+.sepcen{
+    margin-top: 10px;
+    width: 80%;
+    margin-left: 10%;
+}
+.text-right{
+
+}
+.decal{
+    text-align: right;
+}
+.floater{
+    float: left;
+    margin-top: 5px;
 }
 .tout{
     width: 19%;
     text-align: center;
     margin-bottom: 50px;
     border: 3px dashed rgba(169,6,0,0.83);
-    padding: 20px;margin-left: 5%;
+    margin-left: 5%;
     border-radius: 20px;
     padding-left: 0px;
-    padding-right: 0px;
 }
 .recherche{
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     padding-right: 50px;
     width: 20%;
     margin-right: 0%;
-    margin-top: 5px
+    margin-top: 15px
 
 }
 .separation{
     height: 9px;
     background-color: #d50000;
-    margin-left: 10%;width: 80%
+    margin-left: 10%;
+    width: 80%;
+    margin-bottom: 20px;
 }
 h3{
+    margin-top: 10px;
     margin-left: 14%;
     color: #b51324
 }
@@ -262,7 +313,13 @@ h3{
     margin-left: 35%;
     margin-right: 10%;
 }
-
+.centrer{
+    max-width: 80px;
+    width: auto
+}
+.droite{
+    margin-left: 50%;
+}
 .bare{
     height: 60px;
     background-color: rgb(179,0,10);

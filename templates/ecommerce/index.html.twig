@@ -5,20 +5,18 @@
 {% block body %}
 
 
-    <div class="container bare container_login">
-        <div class="dropdown">
-            <a href="{{ path('future_event') }}">
-                <button class="btn btn-danger" style="margin-top: 9px;margin-left: 20%">Catégories</button>
-            </a>
-            <div class="dropdown-content" style="margin-left: 20%;">
-                <a href="#">Tête</a>
-                <a href="#">Haut</a>
-                <a href="#">Bas</a>
-                <a href="#">Chaussures</a>
-            </div>
-        </div>
-        <input type="text" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
-    </div>
+ <div  class="container bare container_login">
+     <div class="dropdown">
+         <a href="{{ path('future_event') }}"> <button class="btn btn-danger" style="margin-top: 9px;margin-left: 20%">Catégories</button></a>
+         <div class="dropdown-content" style="margin-left: 20%;" >
+             <a href="#">Tête</a>
+             <a href="#">Haut</a>
+             <a href="#">Bas</a>
+             <a href="#">Chaussures</a>
+         </div>
+     </div>
+     <input type="text" onchange="rechercher(this)" oninput="rechercher(this)" onselect="rechercher(this)" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
+ </div>
     <h3> Articles les plus vendus :</h3>
     <div class="container-fluid separation"></div>
     <div class="elem">
@@ -51,11 +49,10 @@
 
     <div class="elem">
         {% for goodies in goodiesList %}
-            <div class="tout">
-                <img class="goodies" src="{{ asset('Image/Goodies/'~goodies.Picture) }}"/><br/>
-                <div class="desc"> {{ goodies.description }}</div>
-                <div class="nomprix">{{ goodies.name }} : ({{ goodies.price }}€)</div>
-                <div class="input-group mb-3 achat ">
+            <div  class="tout" id="{{ goodies.name }}">
+     <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
+     <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
+                <div class="input-group mb-3 achat " >
                     <div class="input-group-prepend " style="max-width: 80px;width: auto">
                         <input type="number" class="form-control text-center" value="1" style=" "
                                onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
