@@ -6,6 +6,7 @@ use App\Entity\Cart;
 use App\Entity\CartGoodies;
 use App\Entity\Category;
 use App\Entity\Goodies;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -136,6 +137,7 @@ class EcommerceController extends Controller
                 'text/html'
             );
 
+        $currentCart->setPurchaseDate(new \DateTime());
         $currentCart->setState(Cart::WAITING);
         $em->flush();
 
@@ -145,5 +147,158 @@ class EcommerceController extends Controller
             'currentCart' => $currentCart,
             'cartGoodiesList' => $cartGoodiesList,
         ]);
+    }
+
+    /**
+     * @param int $idGoodies
+     * @param int $quantity
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boutique/add/{idGoodies}/{quantity}", name="cart_add_goodies", methods="GET", requirements={"idGoodies" = "\d+", "quantity" = "\d+"})
+     */
+    public function ajaxCartAddGoodies(int $idGoodies, int $quantity): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $cart = $this->getDoctrine()
+            ->getRepository(Cart::class)
+            ->findOneBy(['user' => $user]);
+
+        $goodies = $this->getDoctrine()
+            ->getRepository(Goodies::class)
+            ->findOneBy(['id' => $idGoodies]);
+
+        if (!$cart) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $em->persist($cart);
+        }
+
+        if (!$goodies) {
+            return $this->json(['status' => 'error', 'message' => 'Aucun goodies associe à l url']);
+        }
+
+        if ($quantity < 1) {
+            return $this->json(['status' => 'error', 'message' => 'Quantite invalide']);
+        }
+
+        $cartGoodies = $this->getDoctrine()
+            ->getRepository(CartGoodies::class)
+            ->findOneBy(['cart' => $cart, 'goodies' => $goodies]);
+
+        if (!$cartGoodies) {
+            $cartGoodies = new CartGoodies();
+            $cartGoodies->setCart($cart);
+            $cartGoodies->setGoodies($goodies);
+            $cartGoodies->setQuantity($quantity);
+            $em->persist($cartGoodies);
+        } else {
+            $cartGoodies->setQuantity($cartGoodies->getQuantity() + $quantity);
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'L ajout a bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idGoodies
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boutique/remove/{idGoodies}", name="cart_remove_goodies", methods="GET", requirements={"idGoodies" = "\d+"})
+     */
+    public function ajaxCartRemoveGoodies(int $idGoodies): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $cart = $this->getDoctrine()
+            ->getRepository(Cart::class)
+            ->findOneBy(['user' => $user]);
+
+        $goodies = $this->getDoctrine()
+            ->getRepository(Goodies::class)
+            ->findOneBy(['id' => $idGoodies]);
+
+        if (!$cart) {
+            return $this->json(['status' => 'error', 'message' => 'Vous ne pouvez rien supprimer : pas de panier']);
+        }
+
+        if (!$goodies) {
+            return $this->json(['status' => 'error', 'message' => 'Aucun goodies associe à l url']);
+        }
+
+        $cartGoodies = $this->getDoctrine()
+            ->getRepository(CartGoodies::class)
+            ->findOneBy(['cart' => $cart, 'goodies' => $goodies]);
+
+        if (!$cartGoodies) {
+            return $this->json(['status' => 'error', 'message' => 'Ce goodies n etait pas dans votre panier']);
+        }
+
+        $em->remove($cartGoodies);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le retrait a bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idGoodies
+     * @param int $quantity
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boutique/change/{idGoodies}/{quantity}", name="cart_change_goodies", methods="GET", requirements={"idGoodies" = "\d+", "quantity" = "\d+"})
+     */
+    public function ajaxCartChangeGoodies(int $idGoodies, int $quantity): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $cart = $this->getDoctrine()
+            ->getRepository(Cart::class)
+            ->findOneBy(['user' => $user]);
+
+        $goodies = $this->getDoctrine()
+            ->getRepository(Goodies::class)
+            ->findOneBy(['id' => $idGoodies]);
+
+        if (!$cart) {
+            return $this->json(['status' => 'error', 'message' => 'Vous ne pouvez rien modifier : pas de panier']);
+        }
+
+        if (!$goodies) {
+            return $this->json(['status' => 'error', 'message' => 'Aucun goodies associe à l url']);
+        }
+
+        if ($quantity < 1) {
+            return $this->json(['status' => 'error', 'message' => 'Quantite invalide']);
+        }
+
+        $cartGoodies = $this->getDoctrine()
+            ->getRepository(CartGoodies::class)
+            ->findOneBy(['cart' => $cart, 'goodies' => $goodies]);
+
+        if (!$cartGoodies) {
+            return $this->json(['status' => 'error', 'message' => 'Ce produit n est pas dans le panier']);
+        } else {
+            $cartGoodies->setQuantity($quantity);
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'La modification a bien ete pris en compte']);
     }
 }
