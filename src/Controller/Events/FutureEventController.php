@@ -90,9 +90,9 @@ class FutureEventController extends Controller
 
         $response = new Response($fileContent);
         $disposition = $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $filename
-        );
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $filename
+    );
 
         $response->headers->set('Content-Disposition', $disposition);
         return $response;
