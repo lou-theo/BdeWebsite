@@ -83,6 +83,15 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "grandt/binstring": {
+        "version": "1.0.0"
+    },
+    "grandt/phpzipmerge": {
+        "version": "1.0.4"
+    },
+    "grandt/relativepath": {
+        "version": "1.0.2"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -112,6 +121,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phpzip/phpzip": {
+        "version": "2.0.8"
     },
     "psr/cache": {
         "version": "1.0.1"

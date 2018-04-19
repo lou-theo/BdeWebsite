@@ -7,8 +7,11 @@ use App\Entity\Event;
 use App\Entity\Photo;
 use App\Form\CommentForm;
 use App\Form\PhotoForm;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -106,6 +109,51 @@ class PastEventController extends Controller
     }
 
     /**
+     * @Route("/evenements/passes/{idEvent}/download", name="download_picture_event", requirements={"idEvent" = "\d+"})
+     * @param Request $request
+     * @param int $idEvent
+     */
+    public function downloadPicture(Request $request, int $idEvent)
+    {
+        $this->denyAccessUnlessGranted('ROLE_CESI', null, 'Vous n\'avez pas accès à cette fonction !');
+        
+        $photos = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findBy(['event' => $idEvent]);
+
+        if (!$photos) {
+            throw $this->createNotFoundException('Aucun évènement ou photos associés à l\'url');
+        }
+
+        $zipname = 'photoEvent.zip';
+        $zip = new \ZipArchive();
+        $zip->open($zipname, \ZipArchive::CREATE);
+
+
+        $loop = 0;
+        foreach ($photos as $photo) {
+            $filename = $photo->getFileName();
+            $filepath = "C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\".$filename;
+            $zip->addFile('C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\'.$filename, 'photo'.$loop.'.jpg');
+            $loop++;
+        }
+        $zip->close();
+
+
+        $response = new Response();
+        /*$zippath = 'C:/wamp64/www/BdeWebsite/public/'.$zipname;
+        echo $zippath;
+
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $zipname);
+        $response->headers->set('Content-Disposition', $disposition);
+        //header("Content-Disposition: attachment; filename = $download");
+        $response->headers->set('Content-Type', 'application/zip');
+        */
+
+        return $response;
+    }
+}
+
      * @param int $idPhoto
      * @return JsonResponse
      * @throws \LogicException
