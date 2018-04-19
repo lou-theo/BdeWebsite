@@ -96,6 +96,10 @@
 {% endblock %}
 </body>
 <script>
+    {% block js %}
+
+    {% endblock %}
+
     function surligne(champ, erreur) {
         if (erreur)
             champ.style.backgroundColor = "#fba";
@@ -119,18 +123,6 @@
             champ.value = 1
         }
     }
-
-    function rechercher(champ) {
-        {% for goodies in goodiesList %}
-        enlever("{{ goodies.name }}")
-        if ("{{ goodies.name }}".indexOf(champ.value) != -1) {
-            remettre("{{ goodies.name }}")
-        }
-        {% endfor %}
-    }
-    function enlever(stri) {document.getElementById(stri).hidden = true;}
-
-    function remettre(stri) {document.getElementById(stri).hidden = false;}
 
     var $el, $ps, $up, totalHeight;
 
@@ -220,6 +212,18 @@
         xhr.addEventListener('readystatechange', function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxDeleteGoodies(url, element) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                element.parentNode.parentNode.parentNode.removeChild(element.parentNode.parentNode);
             }
         });
         xhr.send(null);

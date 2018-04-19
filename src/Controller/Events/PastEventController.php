@@ -135,6 +135,7 @@ class PastEventController extends Controller
         $loop = 0;
         foreach ($photos as $photo) {
             $filename = $photo->getFileName();
+            $imagePath = substr(__FILE__, 0, (\strlen(__FILE__)-45)) . '\\public\\images\\logostshirt\\' . $company->getTshirtImage();
             $filepath = "C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\".$filename;
             $zip->addFile('C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\'.$filename, 'photo'.$loop.'.jpg');
             $loop++;
