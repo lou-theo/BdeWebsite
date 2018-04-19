@@ -28,6 +28,13 @@ class CartGoodies
     private $quantity;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $price;
+
+    /**
      * @var Cart
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Cart")
@@ -68,6 +75,22 @@ class CartGoodies
      * @param int $quantity
      */
     public function setQuantity(?int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): ?int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setPrice(?int $quantity): void
     {
         $this->quantity = $quantity;
     }

@@ -11,10 +11,10 @@
                 <button class="btn btn-danger" style="margin-top: 9px;margin-left: 20%">Catégories</button>
             </a>
             <div class="dropdown-content" style="margin-left: 20%;">
-                <a href="#">Tête</a>
-                <a href="#">Haut</a>
-                <a href="#">Bas</a>
-                <a href="#">Chaussures</a>
+                <a href="{{ path('ecommerce') }}">Tout</a>
+                {% for category in categories %}
+                    <a href="{{ path('category_search', {'category': category.name}) }}">{{ category.name }}</a>
+                {% endfor %}
             </div>
         </div>
         <input type="text" onchange="rechercher(this)" oninput="rechercher(this)" onselect="rechercher(this)"
@@ -46,7 +46,7 @@
     </div>
 
 
-    <h3> Tout les article :</h3>
+    <h3> Tous les article :</h3>
     <div class="container-fluid separation"></div>
 
 
@@ -61,7 +61,10 @@
                         <input type="number" class="form-control text-center" value="1" style=" "
                                onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
                     </div>
-                    <button class="btn btn-outline-secondary test" type="button">Acheter</button>
+                    <button class="btn btn-outline-secondary test"
+                            onclick="ajaxAddGoodies('{{ url('cart_add_goodies', {'idGoodies': goodies.id, 'quantity': 1}) }}', this, this.parentNode.firstElementChild.firstElementChild.value)"
+                            type="button">Acheter
+                    </button>
                 </div>
             </div>
 
