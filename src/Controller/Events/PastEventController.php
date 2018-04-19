@@ -109,9 +109,11 @@ class PastEventController extends Controller
     }
 
     /**
-     * @Route("/evenements/passes/{idEvent}/download", name="download_picture_event", requirements={"idEvent" = "\d+"})
      * @param Request $request
      * @param int $idEvent
+     * @return Response
+     *
+     * @Route("/evenements/passes/{idEvent}/download", name="download_picture_event", requirements={"idEvent" = "\d+"})
      */
     public function downloadPicture(Request $request, int $idEvent)
     {
@@ -152,8 +154,8 @@ class PastEventController extends Controller
 
         return $response;
     }
-}
 
+    /**
      * @param int $idPhoto
      * @return JsonResponse
      * @throws \LogicException
