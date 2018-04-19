@@ -114,8 +114,8 @@ class PastEventController extends Controller
      */
     public function downloadPicture(Request $request, int $idEvent)
     {
-        /*$this->denyAccessUnlessGranted('ROLE_CESI', null, 'Vous n\'avez pas accès à cette fonction !');
-        */
+        $this->denyAccessUnlessGranted('ROLE_CESI', null, 'Vous n\'avez pas accès à cette fonction !');
+        
         $photos = $this->getDoctrine()
             ->getRepository(Photo::class)
             ->findBy(['event' => $idEvent]);
