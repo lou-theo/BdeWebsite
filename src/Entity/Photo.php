@@ -62,22 +62,22 @@ class Photo
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $userOwner;
 
     /**
      * @var Event
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Event")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $event;
 
     /**
      * @var array|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="photo")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="photo", cascade={"all"}, orphanRemoval=true)
      */
     private $comments;
 
@@ -124,7 +124,7 @@ class Photo
     /**
      * @param string $fileName
      */
-    public function setFileName(string $fileName): void
+    public function setFileName(?string $fileName): void
     {
         $this->fileName = $fileName;
     }

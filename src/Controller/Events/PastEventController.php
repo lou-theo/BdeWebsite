@@ -8,6 +8,7 @@ use App\Entity\Photo;
 use App\Form\CommentForm;
 use App\Form\PhotoForm;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -108,7 +109,7 @@ class PastEventController extends Controller
     }
 
     /**
-     * @Route("/evenements/passes/{idEvent}/download", name="download_picture_event")
+     * @Route("/evenements/passes/{idEvent}/download", name="download_picture_event", requirements={"idEvent" = "\d+"})
      * @param Request $request
      * @param int $idEvent
      */
@@ -149,7 +150,108 @@ class PastEventController extends Controller
         $response->headers->set('Content-Type', 'application/zip');
         */
 
-        //return new Response ('Test');
         return $response;
+    }
+}
+
+     * @param int $idPhoto
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/photo/like/{idPhoto}", name="photo_add_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     */
+    public function ajaxPhotoAddLike(int $idPhoto): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findOneBy(['id' => $idPhoto]);
+
+        if (!$photo) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune photo associe a l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($photo->getUsersLike()->contains($user) ) {
+            return $this->json(['status' => 'error', 'message' => 'Vous avez deja like cette photo']);
+        }
+
+        $photo->addUserLike($user);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le like a bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idPhoto
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/photo/de-like/{idPhoto}", name="photo_remove_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     */
+    public function ajaxPhotoRemoveLike(int $idPhoto): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findOneBy(['id' => $idPhoto]);
+
+        if (!$photo) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune photo associe a l url']);
+        }
+
+        $user = $this->getUser();
+
+        if (!$photo->getUsersLike()->contains($user) ) {
+            return $this->json(['status' => 'error', 'message' => 'Vous n avez pas like cette photo']);
+        }
+
+        $photo->removeUserLike($user);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le retrait du like bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idPhoto
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/photo/toggle-like/{idPhoto}", name="photo_toggle_like", methods="GET", requirements={"idPhoto" = "\d+"})
+     */
+    public function ajaxPhotoToggleLike(int $idPhoto): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $this->getDoctrine()
+            ->getRepository(Photo::class)
+            ->findOneBy(['id' => $idPhoto]);
+
+        if (!$photo) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune photo associe a l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($photo->getUsersLike()->contains($user) ) {
+            $photo->removeUserLike($user);
+            $message = 'remove';
+        } else {
+            $photo->addUserLike($user);
+            $message = 'add';
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => $message, 'number' => count($photo->getUsersLike())]);
     }
 }

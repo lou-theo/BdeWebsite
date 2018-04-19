@@ -37,15 +37,15 @@ class Comment
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
     /**
      * @var Photo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Photo", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Photo", inversedBy="comments", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $photo;
 

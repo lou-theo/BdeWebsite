@@ -3,26 +3,116 @@
 {% block title %} {{ parent() }}{% endblock %}
 
 {% block body %}
-    {# descriptif de l'event toussa #}
-    Ajouter une image
-    {{ form_start(photoForm) }}
-        {{ form_row(photoForm.title) }}
-        {{ form_row(photoForm.file) }}
-        <button type="submit" >Ajouter la photo</button>
-    {{ form_end(photoForm) }}
+    <div class="container_login">
+        <div></div>
+        <div class="objet ">
 
-    {% for photo in photos %}
-        {{ photo.title }}
-        {{ photo.fileName }}
-        {% for comment in photo.comments %}
-            {{ comment.message }}
-        {% endfor %}
+            <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~pastEvent.picture) }} "
+                             style="max-height:200px;width: auto "></a>
+            <p style="font-size: 25px" class="titre alert alert-primary">{{ pastEvent.title }}</p>
+            <p class="description "> {{ pastEvent.description }}<br/><br/>
+            <div></div>
+            <div class="container-fluid separation"></div>
 
-        {% set form =  commentForm.createView %}
-        {{ form_start(form) }}
-            {{ form_row(form.message) }}
-            {{ form_row(form.idPhoto, {'attr': {'value': photo.id}}) }}
-            <button type="submit" >Envoyer !</button>
-        {{ form_end(form) }}
-    {% endfor %}
+
+            {% for photo in photos %}
+                <div>
+                    <div class="alert alert-success" style="width: 40%; margin-left: 30%; margin-top: 20px">
+                        Nom de la photo: {{ photo.title }}
+                    </div>
+
+                    <div>
+                        <img src="{{ asset('Image/PhotoEvent/'~photo.fileName) }}">
+                        {% if is_granted('ROLE_CESI') %}
+                            <i class="fa fa-exclamation"
+                               onclick="ajaxBoutonEvent('{{ url('moderation_photo_warn', {'idPhoto': photo.id}) }}', this)"
+                               style="font-size:48px;color:red"></i>
+                        {% endif %}
+                        {% if is_granted('ROLE_BDE') %}
+                            <i class="fa fa-close"
+                               onclick="ajaxDeletePhoto('{{ url('moderation_photo_remove', {'idPhoto': photo.id}) }}', this)"
+                               style="font-size:48px;color:red"></i>
+                        {% endif %}
+                        <div>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="ajaxToggleLike('{{ url('photo_toggle_like', {'idPhoto': photo.id}) }}', this)"
+                                    style="margin:20px;padding-right: 25px;padding-left: 25px">
+
+                                {% if photo.usersLike.contains(user) %}
+                                    Retirer Like
+                                {% else %}
+                                    Like
+                                {% endif %}
+
+                                <span class="badge badge-light">{{ photo.getUsersLike|length }}</span>
+
+                            </button>
+                        </div>
+                    </div>
+
+                    {% for comment in photo.comments %}
+                        <div style="color: #70141d;">
+                            {{ comment.user.firstName }} {{ comment.user.lastName }}
+                            le {{ comment.udatedDate|date("d/m/Y") }} à {{ comment.udatedDate|date("H:i") }} :
+                            <div class="alert alert-warning " style="width: 20%;margin-left: 40%">
+                                {{ comment.message }}
+                                {% if is_granted('ROLE_CESI') %}
+                                    <i class="fa fa-exclamation"
+                                       onclick="ajaxBoutonEvent('{{ url('moderation_comment_warn', {'idComment': comment.id}) }}', this)"
+                                       style="font-size:24px;color:red"></i>
+                                {% endif %}
+                                {% if is_granted('ROLE_BDE') %}
+                                    <i class="fa fa-close"
+                                       onclick="ajaxDeleteComment('{{ url('moderation_comment_remove', {'idComment': comment.id}) }}', this)"
+                                       style="font-size:24px;color:red"></i>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    {% endfor %}
+
+                    {% set form =  commentForm.createView %}
+                    <div class="">
+                        {{ form_start(form) }}
+                        <div>
+                            {{ form_label(form.message) }} :
+                        </div>
+                        {{ form_widget(form.message, {'attr': {'style': "width:30%;height:140px;margin-bottom:20px;margin-top:20px"}}) }}
+
+                        {{ form_row(form.idPhoto, {'attr': {'value': photo.id}}) }}
+                        <div>
+                            <button type="submit" class="btn btn-danger" style="margin-bottom: 30px">Envoyer !</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            {% endfor %}
+            <h3 style="margin-left: -60%"> ajoutez votre image :</h3>
+
+            <div class="container-fluid separation"></div>
+
+
+            <div class="alert-secondary alert" style="width: 60%; margin-left: 20%;margin-top: 20px">
+                Ajouter une image
+            </div>
+            {{ form_start(photoForm) }}
+
+            <div style="width: 20%;margin-left: 40%;margin-bottom: 20px">
+                {{ form_row(photoForm.title,{'attr': {'class': "form-control" }}) }}
+            </div>
+            <div style="color: #70141d;">
+                {{ form_label(photoForm.file) }}
+            </div>
+            <div style="margin-bottom: 20px" class="alert alert-link">
+                {{ form_widget(photoForm.file) }}
+            </div>
+
+            <button type="submit" class="btn btn-danger btn-compte" style="margin-bottom: 20px">Ajouter l'image</button>
+
+            {{ form_end(photoForm) }}
+
+        </div>
+
+        <div></div>
+    </div>
 {% endblock %}

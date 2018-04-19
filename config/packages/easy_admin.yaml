@@ -49,6 +49,9 @@ easy_admin:
                   - { property: 'pictureFile', type: 'vich_image' }
                   - { property: 'eventDate', label: 'Date', type: 'datetime' }
                   - { property: 'price', label: 'Prix', type: 'integer' }
+        Category:
+            class: App\Entity\Category
+            label: 'Catégories'
         Goodies:
             class: App\Entity\Goodies
             label: 'Goodies'
@@ -97,6 +100,23 @@ easy_admin:
                   - { property: 'lastName', label: 'Nom' }
                   - { property: 'mail', label: 'Adresse mail' }
                   - { property: 'roles', label: 'Rôles', type: choice, type_options: { multiple: true, choices: { 'Utilisateur de base': ROLE_USER, 'Membre CESI': ROLE_CESI, 'Membre BDE': ROLE_BDE } } }
-        Category:
-            class: App\Entity\Category
-            label: 'Catégories'
+
+        Cart:
+            class: App\Entity\Cart
+            label: 'Panier boutique'
+            disabled_actions: ['new', 'delete']
+            list:
+                fields:
+                  - id
+                  - { property: 'user.fullName', label: 'Nom propriétaire panier' }
+                  - { property: 'state', label: 'Etat du panier', template: 'easy_admin/cart_state.html.twig' }
+                  - { property: 'purchaseDate', label: 'Date de commande', type: 'datetime' }
+            show:
+                fields:
+                  - id
+                  - { property: 'user.fullName', label: 'Nom propriétaire panier' }
+                  - { property: 'state', label: 'Etat du panier' }
+                  - { property: 'purchaseDate', label: 'Date de commande', type: 'datetime' }
+            form:
+                fields:
+                  - { property: 'state', label: 'Etat du panier', type: choice, type_options: { multiple: false, choices: { 'Fait des achats': 0, 'A passé commande': 1, 'En attente de réception de la commande': 2, 'Commande reçu': 3 } } }

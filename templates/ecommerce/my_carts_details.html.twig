@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ cart.user }}
+    {% for cartGoodie in cartGoodies %}
+
+        <div class="tout">
+            <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
+            <div class="desc"> {{  cartGoodie.goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
+            <div class="input-group mb-3 achat">
+                <div class="input-group-prepend " style="max-width: 80px;width: auto">
+                    <input type="number" class="form-control text-center" value="1" style=" " onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
+                </div>
+                <button  class="btn btn-outline-secondary test" type="button" >Acheter</button>
+            </div>
+        </div>
+        {{ cartGoodie.goodies.name }}
+        {{ cartGoodie.quantity }}
+
+
+    {% endfor %}
+{% endblock %}

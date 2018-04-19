@@ -7,6 +7,7 @@ use App\Entity\IdeaEvent;
 use App\Form\EventForm;
 use App\Form\IdeaEventForm;
 use App\Service\NotificationSender;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -117,5 +118,71 @@ class IdeaEventController extends Controller
             'form' => $form->createView(),
             'event' => $event,
         ]);
+    }
+
+    /**
+     * @param int $idIdeaEvent
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boite-a-idee/vote/{idIdeaEvent}", name="idea_event_add_vote", methods="GET", requirements={"idIdeaEvent" = "\d+"})
+     */
+    public function ajaxIdeaEventAddVote(int $idIdeaEvent): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $ideaEvent = $this->getDoctrine()
+            ->getRepository(IdeaEvent::class)
+            ->findOneBy(['id' => $idIdeaEvent]);
+
+        if (!$ideaEvent) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune proposition evenement associe à l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($ideaEvent->getUsersVote()->contains($user) ) {
+            return $this->json(['status' => 'error', 'message' => 'Vous avez deja vote pour cette idee']);
+        }
+
+        $ideaEvent->addUserVote($user);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le vote a bien ete pris en compte']);
+    }
+
+    /**
+     * @param int $idIdeaEvent
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boite-a-idee/de-vote/{idIdeaEvent}", name="idea_event_remove_vote", methods="GET", requirements={"idIdeaEvent" = "\d+"})
+     */
+    public function ajaxIdeaEventRemoveVote(int $idIdeaEvent): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $ideaEvent = $this->getDoctrine()
+            ->getRepository(IdeaEvent::class)
+            ->findOneBy(['id' => $idIdeaEvent]);
+
+        if (!$ideaEvent) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune proposition evenement associe à l url']);
+        }
+
+        $user = $this->getUser();
+
+        if (!$ideaEvent->getUsersVote()->contains($user) ) {
+            return $this->json(['status' => 'error', 'message' => 'Vous n avez pas vote pour cette idee']);
+        }
+
+        $ideaEvent->removeUserVote($user);
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Le retrait de vote a bien ete pris en compte']);
     }
 }

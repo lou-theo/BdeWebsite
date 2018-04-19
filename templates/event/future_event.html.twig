@@ -21,8 +21,8 @@
 
             <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~event.picture)}}"></a>
             <p style="font-size: 25px" class="titre alert alert-primary">{{ event.title }}</p>
-            <p class="description "> {{ event.description }}<br/><br/>
-            <div class="participe alert alert-info ">
+            <p > {{ event.description }}<br/><br/></p>
+            <div class="participe alert alert-info " >
 
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% if  event.usersParticipate|length == 0 %}
@@ -36,13 +36,24 @@
                 {% endif %}
                 {{ event.price }} € <br />
                 </div>
-                <button type="button" class="btn btn-danger ">Je participe !</button></p>
+
+                {% if event.usersParticipate.contains(user) %}
+                    <button type="button" class="btn btn-danger " onclick="ajaxBoutonEvent('{{ url('event_remove_participate', {'idEvent': event.id}) }}', this)">Je ne participe plus...</button></p>
+                {% else %}
+                    <button type="button" class="btn btn-danger " onclick="ajaxBoutonEvent('{{ url('event_add_participate', {'idEvent': event.id}) }}', this)">Je participe !</button></p>
+                {% endif %}
+
+                {% if is_granted('ROLE_CESI') %}
+
+                    <button class="btn btn-danger btn-compte" onclick="ajaxBoutonEvent('{{ url('moderation_event_warn', {'idEvent': event.id}) }}', this)">Signaler <i class="fa fa-exclamation" style="font-size:20px"></i></button>
+                {% endif %}
+
             {% else %}
                 Pour pouvoir participer vous devez être connecté :</div>
                 <a href="{{ url('login') }}" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a>
             {% endif %}
             {% if is_granted('ROLE_BDE') %}
-                <button class="btn btn-danger btn-compte">Récuperer les participants</button>
+                <a href="{{ url('download_csv', {'idEvent': event.id}) }}" ><button class="btn btn-danger btn-compte">Récuperer les participants</button></a>
             {% endif %}
 
             </div>

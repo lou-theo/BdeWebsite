@@ -5,33 +5,39 @@
 {% block body %}
 
 
- <div  class="container bare container_login">
-     <div class="dropdown">
-         <a href="{{ path('future_event') }}"> <button class="btn btn-danger" style="margin-top: 9px;margin-left: 20%">Catégories</button></a>
-         <div class="dropdown-content" style="margin-left: 20%;" >
-             <a href="#">Tête</a>
-             <a href="#">Haut</a>
-             <a href="#">Bas</a>
-             <a href="#">Chaussures</a>
-         </div>
-     </div>
-     <input type="text" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
- </div>
+    <div class="container bare container_login">
+        <div class="dropdown">
+            <a href="{{ path('future_event') }}">
+                <button class="btn btn-danger" style="margin-top: 9px;margin-left: 20%">Catégories</button>
+            </a>
+            <div class="dropdown-content" style="margin-left: 20%;">
+                <a href="#">Tête</a>
+                <a href="#">Haut</a>
+                <a href="#">Bas</a>
+                <a href="#">Chaussures</a>
+            </div>
+        </div>
+        <input type="text" id="idea_event_form_title" class="form-control recherche" placeholder="Rechercher">
+    </div>
     <h3> Articles les plus vendus :</h3>
-    <div  class="container-fluid separation"></div>
+    <div class="container-fluid separation"></div>
     <div class="elem">
 
 
-
-        {% for goodies in goodiesList %}
+        {% for goodies in topGoodiesList %}
             <div class="tout">
-                <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
-                <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
-                <div class="input-group mb-3 achat" >
+                <img class="goodies" src="{{ asset('Image/Goodies/'~goodies.Picture) }}"/><br/>
+                <div class="desc"> {{ goodies.description }}</div>
+                <div class="nomprix">{{ goodies.name }} : ({{ goodies.price }}€)</div>
+                <div class="input-group mb-3 achat">
                     <div class="input-group-prepend " style="max-width: 80px;width: auto">
-                        <input type="number" class="form-control text-center" value="1" style=" " onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
+                        <input type="number" class="form-control text-center" value="1" style=" "
+                               onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
                     </div>
-                    <button  class="btn btn-outline-secondary test" type="button" >Acheter</button>
+                    <button class="btn btn-outline-secondary test"
+                            onclick="ajaxAddGoodies('{{ url('cart_add_goodies', {'idGoodies': goodies.id, 'quantity': 1}) }}', this, this.parentNode.firstElementChild.firstElementChild.value)"
+                            type="button">Acheter
+                    </button>
                 </div>
             </div>
 
@@ -39,38 +45,26 @@
     </div>
 
 
-    <h3 > Tout les article :</h3>
-    <div  class="container-fluid separation"></div>
+    <h3> Tout les article :</h3>
+    <div class="container-fluid separation"></div>
 
 
     <div class="elem">
         {% for goodies in goodiesList %}
             <div class="tout">
-     <img class="goodies"src="{{ asset('Image/Goodies/'~goodies.Picture)}}"  /><br/>
-     <div class="desc"> {{  goodies.description }}</div><div class="nomprix">{{ goodies.name }} : ({{  goodies.price}}€)</div>
-                <div class="input-group mb-3 achat " >
+                <img class="goodies" src="{{ asset('Image/Goodies/'~goodies.Picture) }}"/><br/>
+                <div class="desc"> {{ goodies.description }}</div>
+                <div class="nomprix">{{ goodies.name }} : ({{ goodies.price }}€)</div>
+                <div class="input-group mb-3 achat ">
                     <div class="input-group-prepend " style="max-width: 80px;width: auto">
-                        <input type="number" class="form-control text-center" value="1" style=" " onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
+                        <input type="number" class="form-control text-center" value="1" style=" "
+                               onchange="verification(this)" oninput="verification(this)" onselect="verification(this)">
                     </div>
-                    <button  class="btn btn-outline-secondary test" type="button" >Acheter</button>
+                    <button class="btn btn-outline-secondary test" type="button">Acheter</button>
                 </div>
             </div>
 
-{% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
-
-{#  <div style="height: 20px"></div>
-<div class="contener_objet" >
-{% for ideaEvent in ideaEventList %}
-   <div class="objet ">
-       <a href="#"><img class="imagee" src="{{ asset('Image/Event/'~ideaEvent.picture)}}"></a>
-       <p style="font-size: 25px" class="titre alert alert-primary">{{ ideaEvent.title }}</p>
-       <p class="description ">{{ ideaEvent.description }}</p>
-       <p class="nom"> Proposé par : {{ ideaEvent.userOwner.firstName }}
-           {{ ideaEvent.userOwner.lastName }}</p>
-   </div>
-{% endfor %}
-</div>
-#}
 {% endblock %}
