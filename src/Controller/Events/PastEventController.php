@@ -118,35 +118,38 @@ class PastEventController extends Controller
         */
         $photos = $this->getDoctrine()
             ->getRepository(Photo::class)
-            ->findOneBy(['event' => $idEvent]);
+            ->findBy(['event' => $idEvent]);
 
         if (!$photos) {
             throw $this->createNotFoundException('Aucun évènement ou photos associés à l\'url');
         }
 
-        $response = new Response();
-        $filename = $photos->getFileName();
-        $filepath = "C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\".$filename;
-        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);
-        $response->headers->set('Content-Disposition', $disposition);
-        $response->headers->set('Content-Type', 'image/jpg');
-        $response->setContent(file_get_contents($filepath));
-
         $zipname = 'photoEvent.zip';
         $zip = new \ZipArchive();
         $zip->open($zipname, \ZipArchive::CREATE);
 
-        $zip = new \ZipArchive();
-        if ($zip->open('photoEvent.zip') === TRUE) {
-            foreach ($photos as $photo) {
-                $zip->addFile($filepath);
-            }
-            $zip->close();
-            echo 'ok';
-        } else {
-            echo 'failed';
-        }
 
+        $loop = 0;
+        foreach ($photos as $photo) {
+            $filename = $photo->getFileName();
+            $filepath = "C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\".$filename;
+            $zip->addFile('C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\'.$filename, 'photo'.$loop.'.jpg');
+            $loop++;
+        }
+        $zip->close();
+
+
+        $response = new Response();
+        /*$zippath = 'C:/wamp64/www/BdeWebsite/public/'.$zipname;
+        echo $zippath;
+
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $zipname);
+        $response->headers->set('Content-Disposition', $disposition);
+        //header("Content-Disposition: attachment; filename = $download");
+        $response->headers->set('Content-Type', 'application/zip');
+        */
+
+        //return new Response ('Test');
         return $response;
     }
 }
