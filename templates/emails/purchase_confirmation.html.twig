@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+
+<h3>Commande de {{ user.fullName }}</h3>
+
+<p>
+    Bonjour, ceci est un mail automatique du BDE, il a pour but de signaler à ses membres que {{ user.fullName }} vient de passer une commande. Cette dernière comporte :<br>
+    {% for cartGoodies in cartGoodiesList %}
+        - {{ cartGoodies.quantity }} {{ cartGoodies.goodies.name }} (id {{ cartGoodies.goodies.id }}) pour {{ cartGoodies.goodies.price }} € unité <br>
+    {% endfor %}
+<p>
+    Merci à vous.
+</p>
+</body>
+</html>
