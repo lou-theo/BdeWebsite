@@ -7,30 +7,34 @@
 
     {% if pastEventList is empty %}
         <div class="container_login">
-            <div ></div>
+            <div></div>
             <p style="text-align: center" class="alert alert-warning">
-                Il n'y a actuellement aucun évènement a venir
+                Il n'y a actuellement aucun évènement passés
             </p>
             <div></div>
         </div>
     {% else %}
-        <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center" class="alert-secondary alert">Liste des evénements passé :</h3>
+        <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center"
+            class="alert-secondary alert">Liste des evénements passé :</h3>
         <div style="height: 20px"></div>
-        <div class="contener_objet" >
+        <div class="contener_objet">
             {% for event in pastEventList %}
                 <div class="objet ">
 
-                    <a href="{{ url('past_event_details',{"idEvent": event.id}) }}"><img class="imagee" src="{{ asset('Image/Event/'~event.picture)}}" ></a>
+                    <a href="{{ url('past_event_details',{"idEvent": event.id}) }}"><img class="imagee"
+                                                                                         src="{{ asset('Image/Event/'~event.picture) }}"></a>
                     <p style="font-size: 25px" class="titre alert alert-primary">{{ event.title }}</p>
                     <p class="description "> {{ event.description }}<br/><br/>
-                        <div class="participe alert alert-info ">
+                    <div class="participe alert alert-info ">
 
-                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
-                     {% else %}
-                                Pour pouvoir commenter et mettre des photos vous devez être connecté
-                         <a href="{{ url('login') }}" > <button type="button"  class="btn btn-danger conn">Connexion/Inscription</button></a></div>
-                         {% endif %}
+                        {% else %}
+                        Pour pouvoir commenter et mettre des photos vous devez être connecté
+                        <a href="{{ url('login') }}">
+                            <button type="button" class="btn btn-danger conn">Connexion/Inscription</button>
+                        </a></div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
