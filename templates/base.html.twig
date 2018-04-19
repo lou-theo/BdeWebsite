@@ -11,6 +11,7 @@
               integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
               crossorigin="anonymous">
 
+        <link rel="icon" type="image/png" href="{{ asset('Image/Logo.png') }}" />
         <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
     {% endblock %}
 
@@ -196,6 +197,18 @@
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 element.parentNode.parentNode.parentNode.removeChild(element.parentNode.parentNode);
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxAddGoodies(url, element, quantity) {
+        var xhr = new XMLHttpRequest();
+        url = url.slice(0, -1)+quantity;
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
             }
         });
         xhr.send(null);
