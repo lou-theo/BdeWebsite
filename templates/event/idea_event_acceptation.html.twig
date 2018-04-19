@@ -3,15 +3,51 @@
 {% block title %} {{ parent() }}{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-    <p>
-        Ancienne image : <img src="{{ asset('Image/Event/' ~ event.picture) }}">
-    </p>
-        {{ form_row(form.pictureFile) }}
-        {{ form_row(form.eventDate) }}
-        {{ form_row(form.price) }}
-    <button type="submit" >Valider</button>
+    <div class="container_login" >
+        <div></div>
+            <div>
+                {{ form_start(form) }}
+            <div class="alert alert-success notif">
+                {{ form_label(form.title) }}
+            </div>
+            <div>
+                {{ form_widget(form.title, {'attr': {'class': "form-control",'style':"width:40%;margin-left:25%;margin-bottom:10px"}}) }}
+            </div>
+            <div class="alert alert-success notif">
+                {{ form_label(form.description) }} :
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.description, {'attr': {'class': " form-control",'style':"width:90%;margin-left:5%;overflow:hidden;height:150px;margin-bottom:20px"}}) }}
+            </div>
+
+                <div class="alert alert-success notif">
+                Ancienne image :
+                 </div>
+            <div style="margin-left: 15%">
+            <img src="{{ asset('Image/Event/' ~ event.picture) }} style:">
+            </div>
+                <div class="alert alert-success notif">
+            {{ form_label(form.pictureFile) }}
+                </div>
+                <div style="margin-bottom: 20px;margin-bottom: 20px">
+                {{ form_widget(form.pictureFile) }}
+                </div>
+                <div class="alert alert-success notif">
+                {{ form_label(form.eventDate) }}
+                </div>
+                <div style="margin-left: 15%">
+                {{ form_widget(form.eventDate) }}
+                </div>
+                <div class="alert alert-success notif">
+                {{ form_label(form.price) }}
+                </div>
+
+                {{ form_widget(form.price, {'attr': {'class': "form-control",'style':"width:40%;margin-left:25%"}}) }}
+                <div style="margin-left: 20%">
+                <button type="submit" class="btn btn-danger logi " style="margin-top: 10px" >Valider</button>
+                </div>
     {{ form_end(form) }}
+        </div>
+        <div></div>
+    </div>
 {% endblock %}
