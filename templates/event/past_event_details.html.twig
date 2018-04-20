@@ -22,7 +22,7 @@
                     </div>
 
                     <div>
-                        <img src="{{ asset('Image/PhotoEvent/'~photo.fileName) }}">
+                        <img src="{{ asset('Image/PhotoEvent/'~photo.fileName) }}"class="imageevent">
                         {% if is_granted('ROLE_CESI') %}
                             <i class="fa fa-exclamation"
                                onclick="ajaxBoutonEvent('{{ url('moderation_photo_warn', {'idPhoto': photo.id}) }}', this)"
