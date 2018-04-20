@@ -185,4 +185,40 @@ class IdeaEventController extends Controller
 
         return $this->json(['status' => 'success', 'message' => 'Le retrait de vote a bien ete pris en compte']);
     }
+
+    /**
+     * @param int $idIdeaEvent
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boite-a-idee/toggle-vote/{idIdeaEvent}", name="idea_event_toggle_vote", methods="GET", requirements={"idIdeaEvent" = "\d+"})
+     */
+    public function ajaxIdeaEventToggleVote(int $idIdeaEvent): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $ideaEvent = $this->getDoctrine()
+            ->getRepository(IdeaEvent::class)
+            ->findOneBy(['id' => $idIdeaEvent]);
+
+        if (!$ideaEvent) {
+            return $this->json(['status' => 'error', 'message' => 'Aucune proposition evenement associe à l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($ideaEvent->getUsersVote()->contains($user) ) {
+            $ideaEvent->removeUserVote($user);
+            $message = 'remove';
+        } else {
+            $ideaEvent->addUserVote($user);
+            $message = 'add';
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => $message, 'number' => count($ideaEvent->getUsersVote())]);
+    }
 }

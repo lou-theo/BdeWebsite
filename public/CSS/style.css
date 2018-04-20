@@ -16,6 +16,24 @@
     margin-top: 40px;
     margin-bottom: 40px;
 }
+.imageevent{
+    max-width: 500px;
+}
+.coinfcom{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.btnconf{
+    width: 14%;
+    margin-left: 43%;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+}
 .btn-danger{
     background-color: #b51324;
     border-color: #9d1425;

@@ -9,7 +9,7 @@
 <h3>Commande de {{ user.fullName }}</h3>
 
 <p>
-    Bonjour, ceci est un mail automatique du BDE, il a pour but de signaler à ses membres que {{ user.fullName }} vient de passer une commande. Cette dernière comporte :<br>
+    Bonjour, ceci est un mail automatique du BDE, il a pour but de signaler à ses membres que {{ user.fullName }} vient de passer une commande (panier id {{ currentCart.id }}). Cette dernière comporte :<br>
 
     {% set totalPrice = 0 %}
     {% for cartGoodies in cartGoodiesList %}
