@@ -11,7 +11,7 @@
               integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
               crossorigin="anonymous">
 
-        <link rel="icon" type="image/png" href="{{ asset('Image/Logo.png') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('Image/Logo.png') }}"/>
         <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
     {% endblock %}
 
@@ -30,11 +30,11 @@
                         <button class="btn btn-danger btn-compte">Mon compte</button>
                         <div class="dropdown-content ">
                             <a href="{{ url('all_my_carts') }}">Mes Commandes</a>
-                            <a href="{{ url('logout') }}">Déconnexion</a>
                             {% if is_granted('ROLE_BDE') %}
                                 <a href="{{ url('admin') }}">Pannel Admin</a>
                             {% endif %}
                             <a href="{{ url('notification') }}"> Notifications</a>
+                            <a href="{{ url('logout') }}">Déconnexion</a>
                         </div>
                     </div>
                 {% else %}
@@ -77,9 +77,9 @@
         <div class="team">Crée par La Team du BDE de reims</div>
         <div class="copyright"><a href="{{ path('cgu-mention') }}"> ©Copyright Bde Incorporation</a></div>
         <div class="logo">
-            <a href="https://twitter.com/BDE_ExiaReims"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
-                <a href="https://www.facebook.com/BDExiaReims"><i class="fa fa-facebook-official fa-3x"
-                                                                  aria-hidden="true"></i></a>
+            <a href="https://twitter.com/BDE_ExiaReims"> <i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
+            <a href="https://www.facebook.com/BDExiaReims"><i class="fa fa-facebook-official fa-3x"
+                                                              aria-hidden="true"></i></a>
         </div>
     </div>
 </footer>
@@ -96,6 +96,10 @@
 {% endblock %}
 </body>
 <script>
+    {% block js %}
+
+    {% endblock %}
+
     function surligne(champ, erreur) {
         if (erreur)
             champ.style.backgroundColor = "#fba";
@@ -119,18 +123,6 @@
             champ.value = 1
         }
     }
-
-    function rechercher(champ) {
-        {% for goodies in goodiesList %}
-        enlever("{{ goodies.name }}")
-        if ("{{ goodies.name }}".indexOf(champ.value) != -1) {
-            remettre("{{ goodies.name }}")
-        }
-        {% endfor %}
-    }
-    function enlever(stri) {document.getElementById(stri).hidden = true;}
-
-    function remettre(stri) {document.getElementById(stri).hidden = false;}
 
     var $el, $ps, $up, totalHeight;
 
@@ -158,25 +150,25 @@
 
         $p.fadeOut();
 
-            return false;
-        });
+        return false;
+    });
 
-        function ajaxBoutonEvent(url, element) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-            xhr.addEventListener('readystatechange', function() {
-                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    element.parentNode.removeChild(element);
-                }
-            });
-            xhr.send(null);
-        }
+    function ajaxBoutonEvent(url, element) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                element.parentNode.removeChild(element);
+            }
+        });
+        xhr.send(null);
+    }
 
     function ajaxToggleLike(url, element) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
-        xhr.addEventListener('readystatechange', function() {
+        xhr.addEventListener('readystatechange', function () {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response['message'] === 'add') {
@@ -192,7 +184,7 @@
     function ajaxDeleteComment(url, element) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
-        xhr.addEventListener('readystatechange', function() {
+        xhr.addEventListener('readystatechange', function () {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 element.parentNode.parentNode.parentNode.removeChild(element.parentNode.parentNode);
@@ -204,7 +196,7 @@
     function ajaxDeletePhoto(url, element) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
-        xhr.addEventListener('readystatechange', function() {
+        xhr.addEventListener('readystatechange', function () {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 element.parentNode.parentNode.parentNode.removeChild(element.parentNode.parentNode);
@@ -215,9 +207,9 @@
 
     function ajaxAddGoodies(url, element, quantity) {
         var xhr = new XMLHttpRequest();
-        url = url.slice(0, -1)+quantity;
+        url = url.slice(0, -1) + quantity;
         xhr.open("GET", url);
-        xhr.addEventListener('readystatechange', function() {
+        xhr.addEventListener('readystatechange', function () {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
             }
@@ -225,6 +217,45 @@
         xhr.send(null);
     }
 
-    </script>
+    function ajaxDeleteGoodies(url, element) {
+        ajaxUpdateTotalPrice();
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                element.parentNode.parentNode.removeChild(element.parentNode);
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxChangeGoodies(url, element, quantity) {
+        verification(this);
+        ajaxUpdateTotalPrice();
+        var xhr = new XMLHttpRequest();
+        url = url.slice(0, -1) + quantity;
+        xhr.open("GET", url);
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+            }
+        });
+        xhr.send(null);
+    }
+
+    function ajaxUpdateTotalPrice() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", '{{ url('cart_get_total_price') }}');
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                $('strong.cart-total-price')[0].innerHTML = response['price'];
+            }
+        });
+        xhr.send(null);
+    }
+
+</script>
 </html>
 

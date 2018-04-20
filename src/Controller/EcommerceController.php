@@ -207,7 +207,7 @@ class EcommerceController extends Controller
 
         $cart = $this->getDoctrine()
             ->getRepository(Cart::class)
-            ->findOneBy(['user' => $user]);
+            ->findOneBy(['user' => $user, 'state' => 0]);
 
         $goodies = $this->getDoctrine()
             ->getRepository(Goodies::class)
@@ -263,7 +263,7 @@ class EcommerceController extends Controller
 
         $cart = $this->getDoctrine()
             ->getRepository(Cart::class)
-            ->findOneBy(['user' => $user]);
+            ->findOneBy(['user' => $user, 'state' => 0]);
 
         $goodies = $this->getDoctrine()
             ->getRepository(Goodies::class)
@@ -309,7 +309,7 @@ class EcommerceController extends Controller
 
         $cart = $this->getDoctrine()
             ->getRepository(Cart::class)
-            ->findOneBy(['user' => $user]);
+            ->findOneBy(['user' => $user, 'state' => 0]);
 
         $goodies = $this->getDoctrine()
             ->getRepository(Goodies::class)
@@ -340,5 +340,38 @@ class EcommerceController extends Controller
         $em->flush();
 
         return $this->json(['status' => 'success', 'message' => 'La modification a bien ete pris en compte']);
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/boutique/get/total-price", name="cart_get_total_price", methods="GET")
+     */
+    public function ajaxGetTotalPrice(): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $user = $this->getUser();
+
+        $cart = $this->getDoctrine()
+            ->getRepository(Cart::class)
+            ->findOneBy(['user' => $user, 'state' => 0]);
+
+        if (!$cart) {
+            return $this->json(['status' => 'error', 'message' => 'Vous ne pouvez rien modifier : pas de panier']);
+        }
+
+        $cartGoodiesList = $this->getDoctrine()
+            ->getRepository(CartGoodies::class)
+            ->findBy(['cart' => $cart]);
+
+        $totalPrice = 0;
+
+        foreach ($cartGoodiesList as $cartGoodies) {
+            $totalPrice += $cartGoodies->getQuantity() * $cartGoodies->getGoodies()->getPrice();
+        }
+
+        return $this->json(['status' => 'success', 'price' => $totalPrice]);
     }
 }

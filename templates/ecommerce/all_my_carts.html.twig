@@ -12,12 +12,12 @@
 
     {% if allCarts is empty %}
         <div class="alert alert-warning sepcen text-center">
-            Vous n'aver Jamais passé de commande sur notre site ! Allez voir du coté de <a href="{{ path('ecommerce') }}">
+            Vous n'avez Jamais passé de commande sur notre site ! Allez voir du coté de <a href="{{ path('ecommerce') }}">
                 la boutique ! </a>
         </div>
     {% else %}
 
-        <h3> Vos commandes en cour :</h3>
+        <h3> Vos commandes en cours :</h3>
         <div class="container-fluid separation"></div>
         {% for cart in allCarts %}
             {% if cart.state !=3 %}
@@ -25,7 +25,7 @@
                     {% if cart.state ==0 %}
                         <div class="text-right">
                             <div class="floater">
-                        Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} est en cour d'achat
+                        Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} est en cours d'achat
                             </div>
                         <a href=" {{ url('my_carts_details', {'idCart': cart.id}) }}" ><button  class="btn btn-success decal" type="button" >Voir ma commande</button> </a>
                         </div>
@@ -41,7 +41,7 @@
                     {% if cart.state == 2 %}
                         <div class="text-right">
                             <div class="floater">
-                                Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} à bien été prise en compte merci de patientez jusqu'a la livraison
+                                Votre commande du {{ cart.purchaseDate|date("d/m/Y") }} à bien été prise en compte, merci de patientez jusqu'a la livraison
                             </div>
                             <a href=" {{ url('my_carts_details', {'idCart': cart.id}) }}" ><button  class="btn btn-success decal" type="button" >Voir ma commande</button> </a>
                         </div>
@@ -49,7 +49,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <h3> Vos commandes finaliées :</h3>
+        <h3> Vos commandes finalisées :</h3>
         <div class="container-fluid separation"></div>
         {% for cart in allCarts %}
             {% if cart.state ==3 %}

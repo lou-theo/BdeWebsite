@@ -5,32 +5,48 @@
 {% block body %}
     {#{{ cart.user.firstName }}#}
     <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center"
-        class="alert-secondary alert">Ton panier:</h3>
+        class="alert-secondary alert">Mon panier :</h3>
     <div class="container_panier">
-        {% for cartGoodie in cartGoodies %}
 
+        {% set totalPrice = 0 %}
+        {% for cartGoodie in cartGoodies %}
+            {% if cart.state == 0 %}
+                {% set totalPrice = totalPrice + cartGoodie.quantity * (cartGoodie.goodies.price) %}
+            {% else %}
+                {% set totalPrice = totalPrice + cartGoodie.quantity * (cartGoodie.price) %}
+            {% endif %}
             <div class="tout">
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                {% if cart.state == 0 %}
+                    <button type="button"
+                            onclick="ajaxDeleteGoodies('{{ url('cart_remove_goodies', {'idGoodies': cartGoodie.goodies.id}) }}', this)"
+                            class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                {% endif %}
                 <img class="goodies" src="{{ asset('Image/Goodies/'~cartGoodie.goodies.Picture) }}"/><br/>
                 <div class="desc"> {{ cartGoodie.goodies.description }}</div>
                 <div class="nomprix">{{ cartGoodie.goodies.name }} : ({{ cartGoodie.goodies.price }}€)</div>
                 <div class="input-group mb-3 achat">
-                    {% if cart.id ==0 %}
+                    {% if cart.state == 0 %}
                         <div class="input-group-prepend centrer" style="max-width: 80px;width: auto">
                             <input type="number" class="form-control text-center" value="{{ cartGoodie.quantity }}"
-                                   style=" " onchange="verification(this)" oninput="verification(this)"
-                                   onselect="verification(this)">
+                                   style=" "
+                                   onchange="ajaxChangeGoodies('{{ url('cart_change_goodies', {'idGoodies': cartGoodie.goodies.id, 'quantity': 1}) }}', this, this.value)"
+                                   oninput="ajaxChangeGoodies('{{ url('cart_change_goodies', {'idGoodies': cartGoodie.goodies.id, 'quantity': 1}) }}', this, this.value)"
+                                   onselect="ajaxChangeGoodies('{{ url('cart_change_goodies', {'idGoodies': cartGoodie.goodies.id, 'quantity': 1}) }}', this, this.value)">
                         </div>
-                        <button class="btn btn-outline-secondary test" type="button">Acheter</button>
-                        {% else %}
-                            <div class="input-group-prepend centrer" >
-                                <span class="badge badge-danger droite">Quantité : {{ cartGoodie.quantity }}</span>
-                            </div>
+                    {% else %}
+                        <div class="input-group-prepend centrer">
+                            <span class="badge badge-danger droite">Quantité : {{ cartGoodie.quantity }}</span>
+                        </div>
                     {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
+    <div>Prix total du panier : <strong class="cart-total-price" >{{ totalPrice }}</strong> €</div>
+{% endblock %}
+
+{% block js %}
+
 {% endblock %}
