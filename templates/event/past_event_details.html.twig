@@ -34,19 +34,21 @@
                                style="font-size:48px;color:red"></i>
                         {% endif %}
                         <div>
-                            <button type="button" class="btn btn-danger"
-                                    onclick="ajaxToggleLike('{{ url('photo_toggle_like', {'idPhoto': photo.id}) }}', this)"
-                                    style="margin:20px;padding-right: 25px;padding-left: 25px">
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <button type="button" class="btn btn-danger"
+                                        onclick="ajaxToggleLike('{{ url('photo_toggle_like', {'idPhoto': photo.id}) }}', this)"
+                                        style="margin:20px;padding-right: 25px;padding-left: 25px">
 
-                                {% if photo.usersLike.contains(user) %}
-                                    Retirer Like
-                                {% else %}
-                                    Like
-                                {% endif %}
+                                    {% if photo.usersLike.contains(user) %}
+                                        Retirer Like
+                                    {% else %}
+                                        Like
+                                    {% endif %}
 
-                                <span class="badge badge-light">{{ photo.getUsersLike|length }}</span>
+                                    <span class="badge badge-light">{{ photo.getUsersLike|length }}</span>
 
-                            </button>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -87,30 +89,33 @@
                     </div>
                 </div>
             {% endfor %}
-            <h3 style="margin-left: -60%"> ajoutez votre image :</h3>
 
-            <div class="container-fluid separation"></div>
+            {% if pastEvent.usersParticipate.contains(user) %}
+                <h3 style="margin-left: -60%"> ajoutez votre image :</h3>
 
+                <div class="container-fluid separation"></div>
 
-            <div class="alert-secondary alert" style="width: 60%; margin-left: 20%;margin-top: 20px">
-                Ajouter une image
-            </div>
-            {{ form_start(photoForm) }}
+                <div class="alert-secondary alert" style="width: 60%; margin-left: 20%;margin-top: 20px">
+                    Ajouter une image
+                </div>
+                {{ form_start(photoForm) }}
 
-            <div style="width: 20%;margin-left: 40%;margin-bottom: 20px">
-                {{ form_row(photoForm.title,{'attr': {'class': "form-control" }}) }}
-            </div>
-            <div style="color: #70141d;">
-                {{ form_label(photoForm.file) }}
-            </div>
-            <div style="margin-bottom: 20px" class="alert alert-link">
-                {{ form_widget(photoForm.file) }}
-            </div>
+                <div style="width: 20%;margin-left: 40%;margin-bottom: 20px">
+                    {{ form_row(photoForm.title,{'attr': {'class': "form-control" }}) }}
+                </div>
+                <div style="color: #70141d;">
+                    {{ form_label(photoForm.file) }}
+                </div>
+                <div style="margin-bottom: 20px" class="alert alert-link">
+                    {{ form_widget(photoForm.file) }}
+                </div>
 
-            <button type="submit" class="btn btn-danger btn-compte" style="margin-bottom: 20px">Ajouter l'image</button>
+                <button type="submit" class="btn btn-danger btn-compte" style="margin-bottom: 20px">Ajouter l'image
+                </button>
 
-            {{ form_end(photoForm) }}
+                {{ form_end(photoForm) }}
 
+            {% endif %}
         </div>
 
         <div></div>

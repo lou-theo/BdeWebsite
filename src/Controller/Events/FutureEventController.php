@@ -132,6 +132,46 @@ class FutureEventController extends Controller
 
     /**
      * @param int $idEvent
+     * @return JsonResponse
+     * @throws \LogicException
+     *
+     * @Route("/ajax/a-venir/toggle-participer/{idEvent}", name="event_toggle_participate", methods="GET", requirements={"idEvent" = "\d+"})
+     */
+    public function ajaxEventToggleParticipate(int $idEvent): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->findOneBy(['id' => $idEvent]);
+
+        if (!$event) {
+            return $this->json(['status' => 'error', 'message' => 'Aucun evenement associe à l url']);
+        }
+
+        $user = $this->getUser();
+
+        if ($event->getUsersParticipate()->contains($user) ) {
+            $event->removeUserParticipate($user);
+            $message = 'remove';
+        } else {
+            $event->addUserParticipate($user);
+            $message = 'add';
+        }
+
+        if ($event->getEventDate() < new \DateTime("now")) {
+            return $this->json(['status' => 'error', 'message' => 'Vous ne pouvez pas changer ca maintenant']);
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'success', 'message' => $message, 'number' => count($event->getUsersParticipate())]);
+    }
+
+    /**
+     * @param int $idEvent
      * @return Response
      *
      * @Route("/evenements/csv/{idEvent}", name="download_csv", requirements={"idEvent" = "\d+"})

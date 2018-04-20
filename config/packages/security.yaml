@@ -39,4 +39,4 @@ security:
     access_control:
          - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/event, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_BDE }
