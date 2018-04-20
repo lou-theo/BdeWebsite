@@ -45,6 +45,13 @@
         {% endfor %}
     </div>
     <div>Prix total du panier : <strong class="cart-total-price" >{{ totalPrice }}</strong> €</div>
+
+    {% if cart.state == 0 %}
+        <a href="{{ path('purchase_confirmation') }}">
+            <button type="button" class="btn btn-danger ">Valider ma commande !</button>
+        </a>
+    {% endif %}
+
 {% endblock %}
 
 {% block js %}

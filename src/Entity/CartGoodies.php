@@ -84,15 +84,15 @@ class CartGoodies
      */
     public function getPrice(): ?int
     {
-        return $this->quantity;
+        return $this->price;
     }
 
     /**
-     * @param int $quantity
+     * @param int $price
      */
-    public function setPrice(?int $quantity): void
+    public function setPrice(?int $price): void
     {
-        $this->quantity = $quantity;
+        $this->price = $price;
     }
 
     /**
