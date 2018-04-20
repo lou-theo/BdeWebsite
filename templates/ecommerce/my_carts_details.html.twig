@@ -28,7 +28,7 @@
                 <div class="nomprix">{{ cartGoodie.goodies.name }} : ({{ cartGoodie.goodies.price }}€)</div>
                 <div class="input-group mb-3 achat">
                     {% if cart.state == 0 %}
-                        <div class="input-group-prepend centrer" style="max-width: 80px;width: auto">
+                        <div class="input-group-prepend centrer" style="max-width: 80px;width: auto; margin-left: 22%">
                             <input type="number" class="form-control text-center" value="{{ cartGoodie.quantity }}"
                                    style=" "
                                    onchange="ajaxChangeGoodies('{{ url('cart_change_goodies', {'idGoodies': cartGoodie.goodies.id, 'quantity': 1}) }}', this, this.value)"
@@ -44,11 +44,12 @@
             </div>
         {% endfor %}
     </div>
-    <div>Prix total du panier : <strong class="cart-total-price" >{{ totalPrice }}</strong> €</div>
+
+    <div class="prix alert alert-success">Prix total du panier : <strong class="cart-total-price" >{{ totalPrice }}</strong> €</div>
 
     {% if cart.state == 0 %}
         <a href="{{ path('purchase_confirmation') }}">
-            <button type="button" class="btn btn-danger ">Valider ma commande !</button>
+            <button type="button" class="btn btn-danger cent ">Valider ma commande !</button>
         </a>
     {% endif %}
 

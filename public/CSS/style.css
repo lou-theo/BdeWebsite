@@ -66,7 +66,6 @@
     height: auto;
     max-height: 150px;
     margin-top: 20px;
-    margin-left: 10%;
 }
 .goodie{
     border: 2px solid red;
@@ -85,6 +84,17 @@
     margin-right: 28%;
     max-height: 80px;
     overflow: hidden;
+}
+.prix{
+width: 20%;
+    margin-left: 39%;
+    text-align: center;
+    margin-top: -3%;
+}
+.cent{
+    margin-left: 40%;
+    width: 18%;
+    margin-bottom: 20px;
 }
 .descr{
     width: 16%;
@@ -283,11 +293,15 @@ box-shadow: #70141d;
 .tout{
     width: 19%;
     text-align: center;
-    margin-bottom: 50px;
     border: 3px dashed rgba(169,6,0,0.83);
     margin-left: 5%;
     border-radius: 20px;
     padding-left: 0px;
+}
+.nomgoo{
+    font-size: 18px;
+    color: #ae1c2f;
+    margin-top: 5px;
 }
 .recherche{
     margin-bottom: 15px;
@@ -305,7 +319,6 @@ box-shadow: #70141d;
     margin-bottom: 20px;
 }
 h3{
-    margin-top: 10px;
     margin-left: 14%;
     color: #b51324
 }
