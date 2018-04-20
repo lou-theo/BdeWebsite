@@ -10,9 +10,13 @@
 
 <p>
     Bonjour, ceci est un mail automatique du BDE, il a pour but de signaler à ses membres que {{ user.fullName }} vient de passer une commande. Cette dernière comporte :<br>
+
+    {% set totalPrice = 0 %}
     {% for cartGoodies in cartGoodiesList %}
+        {% set totalPrice = totalPrice + cartGoodies.quantity * (cartGoodies.goodies.price) %}
         - {{ cartGoodies.quantity }} {{ cartGoodies.goodies.name }} (id {{ cartGoodies.goodies.id }}) pour {{ cartGoodies.goodies.price }} € unité <br>
     {% endfor %}
+Pour un total de {{ totalPrice }} €
 <p>
     Merci à vous.
 </p>

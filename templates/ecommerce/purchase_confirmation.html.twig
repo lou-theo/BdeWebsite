@@ -4,4 +4,8 @@
 
 {% block body %}
     Votre panier a bien été validé, un mail a été envoyé au BDE qui vous recontactera sous peu.
+
+    <a href="{{ path('my_carts_details', {'idCart': currentCart.id}) }}">
+        <button type="button" class="btn btn-danger ">Récapitulatif de la commande</button>
+    </a>
 {% endblock %}

@@ -177,6 +177,10 @@ class EcommerceController extends Controller
                 'text/html'
             );
 
+        foreach ($cartGoodiesList as $cartGoodies) {
+            $cartGoodies->setPrice($cartGoodies->getGoodies()->getPrice());
+        }
+
         $currentCart->setPurchaseDate(new \DateTime());
         $currentCart->setState(Cart::WAITING);
         $em->flush();
