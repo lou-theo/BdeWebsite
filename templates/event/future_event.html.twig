@@ -5,12 +5,14 @@
 {% block body %}
 
     {% if futureEventList is empty %}
-        <div class="container_login">
-            <div></div>
-            <p style="text-align: center" class="alert alert-warning">
-                Il n'y a actuellement aucun évènement a venir
-            </p>
-            <div></div>
+        <div class="mini">
+            <div class="container_login">
+                <div></div>
+                <p style="text-align: center" class="alert alert-warning">
+                    Il n'y a actuellement aucun évènement a venir
+                </p>
+                <div></div>
+            </div>
         </div>
     {% else %}
         <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center"
@@ -40,14 +42,22 @@
                 </div>
 
                 {% if event.usersParticipate.contains(user) %}
-                    <button type="button" class="btn btn-danger " onclick="ajaxBoutonEvent('{{ url('event_remove_participate', {'idEvent': event.id}) }}', this)">Je ne participe plus...</button></p>
+                    <button type="button" class="btn btn-danger "
+                            onclick="ajaxBoutonEvent('{{ url('event_remove_participate', {'idEvent': event.id}) }}', this)">
+                        Je ne participe plus...
+                    </button></p>
                 {% else %}
-                    <button type="button" class="btn btn-danger " onclick="ajaxBoutonEvent('{{ url('event_add_participate', {'idEvent': event.id}) }}', this)">Je participe !</button></p>
+                    <button type="button" class="btn btn-danger "
+                            onclick="ajaxBoutonEvent('{{ url('event_add_participate', {'idEvent': event.id}) }}', this)">
+                        Je participe !
+                    </button></p>
                 {% endif %}
 
                 {% if is_granted('ROLE_CESI') %}
 
-                    <button class="btn btn-danger btn-compte" onclick="ajaxBoutonEvent('{{ url('moderation_event_warn', {'idEvent': event.id}) }}', this)">Signaler <i class="fa fa-exclamation" style="font-size:20px"></i></button>
+                    <button class="btn btn-danger btn-compte"
+                            onclick="ajaxBoutonEvent('{{ url('moderation_event_warn', {'idEvent': event.id}) }}', this)">
+                        Signaler <i class="fa fa-exclamation" style="font-size:20px"></i></button>
                 {% endif %}
 
             {% else %}
@@ -57,7 +67,9 @@
                 </a>
             {% endif %}
             {% if is_granted('ROLE_BDE') %}
-                <a href="{{ url('download_csv', {'idEvent': event.id}) }}" ><button class="btn btn-danger btn-compte">Récuperer les participants</button></a>
+                <a href="{{ url('download_csv', {'idEvent': event.id}) }}">
+                    <button class="btn btn-danger btn-compte">Récuperer les participants</button>
+                </a>
             {% endif %}
 
             </div>

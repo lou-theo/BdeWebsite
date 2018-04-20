@@ -4,9 +4,16 @@
 
 {% block body %}
     <div style="height: 400px;" class="container_login accueil">
-        <div>
+        <div class="acceve">
+            <a href="{{ path('future_event') }} " class="divacc"><p class="alert alert-secondary">Evenement a venir au BDE :</p></a>
 
+            {% for event in futureEventList %}
+                <ul class="even list-group">
 
+                   <li class="list-group-item"> {{ event.title }} le {{ event.eventDate|date("d/m/Y") }} à {{ event.eventDate|date("H:i")}} </li>
+
+                </ul>
+            {% endfor %}
 
         </div>
 
@@ -23,7 +30,12 @@
             </div>
         </div>
     </div>
-        <div ></div>
+        <div >
+
+            <div class="iframe">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5363.478861741204!2d4.008795976865719!3d49.23098869258164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e9748c4dfd3633%3A0x21e7a3d383c840e7!2sCampus+CESI!5e0!3m2!1sfr!2sfr!4v1524210969804" width="400" height="300" frameborder="10" allowfullscreen></iframe>
+            </div>
+        </div>
 
     </div>
 {% endblock %}
