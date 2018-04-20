@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PastEventController extends Controller
 {
@@ -135,9 +136,8 @@ class PastEventController extends Controller
         $loop = 0;
         foreach ($photos as $photo) {
             $filename = $photo->getFileName();
-            $imagePath = substr(__FILE__, 0, (\strlen(__FILE__)-45)) . '\\public\\images\\logostshirt\\' . $company->getTshirtImage();
-            $filepath = "C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\".$filename;
-            $zip->addFile('C:\wamp64\www\BdeWebsite\public\Image\PhotoEvent\\'.$filename, 'photo'.$loop.'.jpg');
+            $imagePath = substr(__FILE__, 0, (\strlen(__FILE__)-46)) . '\\public\\Image\\PhotoEvent\\'.$filename;
+            $zip->addFile($imagePath, 'photo'.$loop.'.jpg');
             $loop++;
         }
         $zip->close();
@@ -153,7 +153,8 @@ class PastEventController extends Controller
         $response->headers->set('Content-Type', 'application/zip');
         */
 
-        return $response;
+
+        return $this->redirect($this->generateUrl('welcome', [], UrlGeneratorInterface::ABSOLUTE_URL) . '/photoEvent.zip', 308);
     }
 
     /**
