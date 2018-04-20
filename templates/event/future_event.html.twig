@@ -29,25 +29,37 @@
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% if  event.usersParticipate|length == 0 %}
                     Soyez le premier a participer a cet evenement pour seulement :
-                {% endif %}
-                {% if event.usersParticipate|length == 1 %}
+                {% elseif event.usersParticipate|length == 1 and not event.usersParticipate.contains(user) %}
                     {{ event.usersParticipate|length }} Personne participe actuellement a cet evenement, rejoignez la pour seulement :
-                {% endif %}
-                {% if  event.usersParticipate|length > 1 %}
+                {% elseif  event.usersParticipate|length > 1 %}
                     Actuellement, {{ event.usersParticipate|length }} personnes participent a cet evenements rejoignez les pour seulement :
+                {% else %}
+                    Prix de l'évènement :
                 {% endif %}
                 {{ event.price }} € <br/>
                 </div>
 
-                {% if event.usersParticipate.contains(user) %}
-                    <button type="button" class="btn btn-danger " onclick="ajaxBoutonEvent('{{ url('event_remove_participate', {'idEvent': event.id}) }}', this)">Je ne participe plus...</button></p>
-                {% else %}
-                    <button type="button" class="btn btn-danger " onclick="ajaxBoutonEvent('{{ url('event_add_participate', {'idEvent': event.id}) }}', this)">Je participe !</button></p>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <button type="button" class="btn btn-danger"
+                            onclick="ajaxToggleParticipate('{{ url('event_toggle_participate', {'idEvent': event.id}) }}', this)"
+                            style="margin:20px;padding-right: 25px;padding-left: 25px">
+
+                        {% if event.usersParticipate.contains(user) %}
+                            Je ne participe plus...
+                        {% else %}
+                            Je participe !
+                        {% endif %}
+
+                        <span class="badge badge-light">{{ event.usersParticipate|length }}</span>
+
+                    </button>
                 {% endif %}
 
                 {% if is_granted('ROLE_CESI') %}
 
-                    <button class="btn btn-danger btn-compte" onclick="ajaxBoutonEvent('{{ url('moderation_event_warn', {'idEvent': event.id}) }}', this)">Signaler <i class="fa fa-exclamation" style="font-size:20px"></i></button>
+                    <button class="btn btn-danger btn-compte"
+                            onclick="ajaxBoutonEvent('{{ url('moderation_event_warn', {'idEvent': event.id}) }}', this)">
+                        Signaler <i class="fa fa-exclamation" style="font-size:20px"></i></button>
                 {% endif %}
 
             {% else %}
@@ -57,7 +69,9 @@
                 </a>
             {% endif %}
             {% if is_granted('ROLE_BDE') %}
-                <a href="{{ url('download_csv', {'idEvent': event.id}) }}" ><button class="btn btn-danger btn-compte">Récuperer les participants</button></a>
+                <a href="{{ url('download_csv', {'idEvent': event.id}) }}">
+                    <button class="btn btn-danger btn-compte">Récuperer les participants</button>
+                </a>
             {% endif %}
 
             </div>

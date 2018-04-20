@@ -24,11 +24,19 @@
                  {{ ideaEvent.userOwner.lastName }}</p>
 
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    {% if ideaEvent.usersVote.contains(user) %}
-                        <button class="btn btn-danger btn-compte" onclick="ajaxBoutonEvent('{{ url('idea_event_remove_vote', {'idIdeaEvent': ideaEvent.id}) }}', this)">Retirer mon vote</button>
-                    {% else %}
-                        <button class="btn btn-danger btn-compte" onclick="ajaxBoutonEvent('{{ url('idea_event_add_vote', {'idIdeaEvent': ideaEvent.id}) }}', this)">Voter pour l'idée</button>
-                    {% endif %}
+                    <button type="button" class="btn btn-danger"
+                            onclick="ajaxToggleVote('{{ url('idea_event_toggle_vote', {'idIdeaEvent': ideaEvent.id}) }}', this)"
+                            style="margin:20px;padding-right: 25px;padding-left: 25px">
+
+                        {% if ideaEvent.usersVote.contains(user) %}
+                            Retirer mon vote
+                        {% else %}
+                            Voter pour l'idée
+                        {% endif %}
+
+                        <span class="badge badge-light">{{ ideaEvent.usersVote|length }}</span>
+
+                    </button>
                 {% endif %}
 
                 {% if is_granted('ROLE_BDE') %}
