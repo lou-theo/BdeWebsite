@@ -29,7 +29,9 @@
             <div class="tout">
                 <img class="goodies" src="{{ asset('Image/Goodies/'~goodies.Picture) }}"/><br/>
                 <div class="desc"> {{ goodies.description }}</div>
-                <div class="nomprix">{{ goodies.name }} : ({{ goodies.price }}€)</div>
+                <div class="nomprix">
+                    <div class="nomgoo">{{ goodies.name }} : ({{ goodies.price }}€)</div>
+                </div>
                 <div class="input-group mb-3 achat">
                     <div class="input-group-prepend " style="max-width: 80px;width: auto">
                         <input type="number" class="form-control text-center" value="1" style=" "
@@ -55,7 +57,9 @@
             <div class="tout" id="{{ goodies.name }}">
                 <img class="goodies" src="{{ asset('Image/Goodies/'~goodies.Picture) }}"/><br/>
                 <div class="desc"> {{ goodies.description }}</div>
-                <div class="nomprix">{{ goodies.name }} : ({{ goodies.price }}€)</div>
+                <div class="nomprix">
+                    <div class="nomgoo">{{ goodies.name }} : ({{ goodies.price }}€)</div>
+                </div>
                 <div class="input-group mb-3 achat ">
                     <div class="input-group-prepend " style="max-width: 80px;width: auto">
                         <input type="number" class="form-control text-center" value="1" style=" "
@@ -77,7 +81,11 @@
     function rechercher(champ) {
     {% for goodies in goodiesList %}
         enlever("{{ goodies.name }}")
-        if ("{{ goodies.name }}".indexOf(champ.value) != -1) {
+        if ("{{ goodies.name }}".indexOf(champ.value) != -1 ) {
+                remettre("{{ goodies.name }}")
+        }
+
+        if ("{{ goodies.description }}".indexOf(champ.value) != -1 ) {
         remettre("{{ goodies.name }}")
         }
     {% endfor %}
