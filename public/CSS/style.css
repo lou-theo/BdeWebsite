@@ -211,10 +211,14 @@ p{
     border-color: rgba(255, 0, 4, 0.44);
     color: #a82228;
 }
-
+.carousel {
+    border-radius: 55px 55px 55px 55px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
 .btn-compte{
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 5%;
+    padding-left: 5%;
     margin-top: 10px;
 }
 .conins{text-align: center;
@@ -279,10 +283,29 @@ box-shadow: #70141d;
     background-size: 100%;
 }
 .iframe {
-    margin-top: 90px;
-    justify-content: left;
-    text-align: left;
-    margin-left: 0%;
+    margin-top: 50px;
+    margin-right: 70px;
+}
+.acceve{
+    margin-left: 3%;
+    border: 3px dashed rgba(169,6,0,0.83);
+    border-radius: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+.mini{
+    min-height: 400px
+}
+.divacc{
+}
+footer{
+}
+.list-group-item{
+    margin-top: 10px;
+}
+.even{
+    margin-left: 20px;
 }
 .alert-info{
 }
@@ -315,6 +338,7 @@ box-shadow: #70141d;
     margin-left: 5%;
     border-radius: 20px;
     padding-left: 0px;
+    margin-bottom: 20px;
 }
 .nomgoo{
     font-size: 18px;

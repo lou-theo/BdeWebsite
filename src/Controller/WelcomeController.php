@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Form\ContactForm;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +16,16 @@ class WelcomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('Welcome/index.html.twig');
+        $futureEventList = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->findAllFutureEvent();
+
+        $user = $this->getUser();
+
+        return $this->render('Welcome/index.html.twig', [
+            'futureEventList' => $futureEventList,
+            'user' => $user,
+        ]);
     }
 
 

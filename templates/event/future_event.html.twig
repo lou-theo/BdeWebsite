@@ -5,12 +5,14 @@
 {% block body %}
 
     {% if futureEventList is empty %}
-        <div class="container_login">
-            <div></div>
-            <p style="text-align: center" class="alert alert-warning">
-                Il n'y a actuellement aucun évènement a venir
-            </p>
-            <div></div>
+        <div class="mini">
+            <div class="container_login">
+                <div></div>
+                <p style="text-align: center" class="alert alert-warning">
+                    Il n'y a actuellement aucun évènement a venir
+                </p>
+                <div></div>
+            </div>
         </div>
     {% else %}
         <h3 style="margin-bottom: 20px;margin-left:20%;margin-right:20%;margin-top:10px;text-align: center"
