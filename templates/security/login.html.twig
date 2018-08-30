@@ -5,31 +5,31 @@
 {% block body %}
 
 
-   <div class="container_login">
-       <div ></div>
-   <form action="{{ path('login') }}" method="post">
-       {% if error %}
-           <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-       {% endif %}
-       <div class="form-group">
-           <h3 style="margin-bottom: 20px;text-align: center;margin-left: 0" class="alert-secondary alert">Connexion</h3>
-           <label for="username">Adresse Mail :</label>
-           <input type="text" onblur="verif(this)" class="form-control" id="username" name="_username" value="{{ last_username }}"  placeholder="Email">
-       </div>
-       <div class="form-group">
-           <label for="password">Mot de passe :</label>
-           <input type="password" onblur="verif(this)"id="password" name="_password" class="form-control" placeholder="Mot de Passe">
+       <div class="container_login">
+           <div ></div>
+       <form action="{{ path('login') }}" method="post">
+           {% if error %}
+               <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+           {% endif %}
+           <div class="form-group">
+               <h3 style="margin-bottom: 20px;text-align: center;margin-left: 0" class="alert-secondary alert">Connexion</h3>
+               <label for="username">Adresse Mail :</label>
+               <input type="text" onblur="verif(this)" class="form-control" id="username" name="_username" value="{{ last_username }}"  placeholder="Email">
+           </div>
+           <div class="form-group">
+               <label for="password">Mot de passe :</label>
+               <input type="password" onblur="verif(this)"id="password" name="_password" class="form-control" placeholder="Mot de Passe">
 
-           <input type="checkbox" id="remember_me" name="_remember_me" />
-           <label for="remember_me">Rester connecté</label>
-       </div>
-       <div class="conins">
-       <button type="submit" class="btn btn-danger logi conins">Connexion</button>
+               <input type="checkbox" id="remember_me" name="_remember_me" />
+               <label for="remember_me">Rester connecté</label>
+           </div>
+           <div class="conins">
+           <button type="submit" class="btn btn-danger logi conins">Connexion</button>
 
-       <p>Pas encore de compte, inscrivez vous ici :</p><a href="{{ path('registration') }}"> <button type="button" class="btn btn-danger logi conins">Inscription</button></a>
-       </div>
-   </form>
-        <div ></div>
-    </div>
+           <p>Pas encore de compte, inscrivez vous ici :</p><a href="{{ path('registration') }}"> <button type="button" class="btn btn-danger logi conins">Inscription</button></a>
+           </div>
+       </form>
+            <div ></div>
+        </div>
 
 {% endblock %}
